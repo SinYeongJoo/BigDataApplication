@@ -1,3 +1,22 @@
+<?php
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+
+// $select_query = "SELECT DISTINCT cafe_id FROM rating ORDER BY rating_sum/rating_num DESC limit 3";
+// $result_set = mysqli_query($conn, $select_query);
+
+$select_query = "SELECT * FROM cafe";
+$result_set = mysqli_query($conn, $select_query);
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -107,27 +126,26 @@
     </style>
 </head>
 <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.html'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.html'">
-    <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.html'">
+    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+    <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
 
     <div class = "intro_div">
         어쩌구 저쩌구<br/>우리 최고!
     </div>
-        <form>
-            <input type="text" id="search_data" class = "search_input"/>
-            <input
-                type="button"
+        <form method="POST" action="Search.php">
+            <input type="text" id="search_data" class = "search_input" name = "cafe_search"/>
+            <button
+                type="submit"
                 class="search_button"
                 value="search"
-                onClick="location.href='Search.html'"
-            ></input>
+            >SEARCH</button>
         </form>
 
     <div class = "map_wrap">
         <form>
-            <input type="image" src="images/seoul_map_all.png" id = "map_image" onclick="location.href='Search.html'">
+            <input type="image" src="images/seoul_map_all.png" id = "map_image" onclick="location.href='Search.php'">
         </form>
     </div>
 
@@ -145,5 +163,14 @@
             </div>
         </form>
     </div>
+    <?php
+    mysqli_close($conn);
+    ?>
 </body>
+<script type="text/javascript">
+function openReview(cafe_search){
+location.href="Search.php?cafe_name="+cafe_search;
+return true;
+}
+</script>
 </html>
