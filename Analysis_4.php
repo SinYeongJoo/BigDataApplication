@@ -121,23 +121,26 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <nav id="topMenu">
       <ul>
         <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
-        <li><a class="menuLink" href="Analysis_2.php">2</a></li>
+        <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
         <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
     <div class="analysis_div">
     <?php
     $guArray = array("도봉구","노원구","강북구","성북구","중랑구","동대문구","은평구","서대문구","마포구","종로구","중구","용산구","성동구","동대문구","중랑구","광진구","강서구","양천구","구로구","영등포구","동작구","금천구","관악구","서초구","강남구","송파구","강동구");
-//    $americano_ = "SELECT * FROM gu where gu_name = '$guArray[0]';";
-$americano_ = "SELECT * FROM gu where gu_name = '도봉구';";
+    for ($i = 0; $i < 27; $i++){
+    $americano_ = "SELECT avg(price) FROM gu, americano where gu.cafe_id = americano.cafe_id and gu_name = '$guArray[$i]';";
     $americano = mysqli_query($conn, $americano_);
-    $total = mysqli_num_rows($ameriano);
-    echo $total;
-  ?> 
-  
-
+    // $price = mysql
+    $price = mysqli_fetch_row($americano);
+    echo $guArray[$i];
+    echo ':';
+    echo ceil($price[0]); //소수점 반올림
+    echo "원<br>\n";
+    }
+    ?>
     </div>
   </body>
 </html>

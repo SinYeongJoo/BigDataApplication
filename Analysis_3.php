@@ -1,3 +1,15 @@
+<?php
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+?>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -98,12 +110,20 @@
     <nav id="topMenu">
     <ul>
         <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
-        <li><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
-        <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+        <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
-    <div class="analysis_div">aa</div>
+    <div class="analysis_div">
+    <?php
+    $rating_ = "SELECT cafe_name,rating_sum/rating_num FROM rating, cafe where cafe.cafe_id=rating.cafe_id order by rating_sum/rating_num desc;";
+    $rating = mysqli_query($conn, $rating_);
+    while($price = mysqli_fetch_row($rating)){
+    echo $price[0],"  " ,round($price[1],2),"<br>\n";
+    }
+    ?>
+    </div>
   </body>
 </html>

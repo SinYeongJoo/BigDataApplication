@@ -126,11 +126,11 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <div>Advanced Analysis</div>
     <nav id="topMenu">
     <ul>
-        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
-        <li><a class="menuLink" href="Analysis_2.php">2</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
-        <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+        <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
 
