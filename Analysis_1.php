@@ -1,3 +1,25 @@
+<?php
+//$keyword = $_POST['keyword'];
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+  $cafe_ = "SELECT * FROM cafe;";
+  $cafe = mysqli_query($conn, $cafe_);
+  $total = mysqli_num_rows($cafe);
+  $franchise_ = "SELECT * FROM company where franchise = 1;";
+  $franchise = mysqli_query($conn, $franchise_);
+  $franchiseTotal = mysqli_num_rows($franchise);
+  $personalTotal = $total - $franchiseTotal;
+?>
+
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -87,6 +109,12 @@
             top:20px;
             right:90px;
         }
+        .font1{
+          font-size: 20px;
+          text-align:center; 
+          font-weight: bold; 
+          line-height:1.0em;
+        }
     </style>
   </head>
   <body>
@@ -95,16 +123,43 @@
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     
-    <div>커피를 분석해 어쩌구 저쩌구</div>
+    <div>Advanced Analysis</div>
     <nav id="topMenu">
-      <ul>
-        <li class="liNow"><a class="menuLink" href="Analysis_1.php">1</a></li>
+    <ul>
+        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
         <li><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">3</a></li>
-        <li><a class="menuLink" href="Analysis_4.php">4</a></li>
+        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">5</a></li>
       </ul>
     </nav>
-    <div class="analysis_div">aa</div>
+
+
+    <?php while($cafedata = mysqli_fetch_assoc($cafe)){  
+  $id =  $cafedata['cafe_id']; 
+  $name = $cafedata['cafe_name']; 
+  $address = $cafedata['cafe_address'];  
+  //$franchiseCount = ;
+  }
+
+  ?> 
+    <div class="analysis_div"> 
+    <p class="font1"> 서울시 전체 카페 수 </p>
+    <p class="font1"><?php echo $total?></p>
+    <p class="font1"> 서울시 프랜차이즈 카페 수 </p> 
+    <p class="font1"><?php echo $franchiseTotal?></p>
+
+    <!-- <p class="font1"> <?php echo ''.$id.'';?></p>
+    <p class="font1"> <?php echo ''.$name.'';?></p>
+    <p class="font1"> <?php echo ''.$address.'';?></p> -->
+    
+    <p class="font1"> 서울시 개인 카페 수 </p>
+    <p class="font1"><?php echo $personalTotal?></p>
+
+
+    </div>
+
+
+  <?php mysqli_close($conn);?>
   </body>
 </html>

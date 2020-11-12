@@ -94,13 +94,13 @@
     <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
-    <div>커피를 분석해 어쩌구 저쩌구</div>
+    <div>Advanced Analysis 3 </div>
     <nav id="topMenu">
-      <ul>
-        <li><a class="menuLink" href="Analysis_1.php">1</a></li>
+    <ul>
+        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
         <li><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li class="liNow"><a class="menuLink" href="Analysis_3.php">3</a></li>
-        <li><a class="menuLink" href="Analysis_4.php">4</a></li>
+        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">5</a></li>
       </ul>
     </nav>
