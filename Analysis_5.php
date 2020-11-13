@@ -119,8 +119,12 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     </nav>
     <div class="analysis_div">
     <?php
-    $guArray = array("도봉구","노원구","강북구","성북구","중랑구","동대문구","은평구","서대문구","마포구","종로구","중구","용산구","성동구","동대문구","중랑구","광진구","강서구","양천구","구로구","영등포구","동작구","금천구","관악구","서초구","강남구","송파구","강동구");
-    for ($i = 0; $i < 27; $i++){
+        $guArray = array("강남구","강동구","강북구","강서구","관악구","광진구","구로구",
+        "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
+        "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
+        "은평구","종로구","중구","중랑구");
+
+    for ($i = 0; $i < 25; $i++){
     $time_ = "SELECT avg(mon_open),avg(mon_close),avg(tue_open),avg(tue_close),avg(wed_open),avg(wed_close),
     avg(thur_open),avg(thur_close),avg(fri_open),avg(fri_close),avg(sat_open),avg(sat_close),
     avg(sun_open),avg(sun_close) FROM gu, time where gu.cafe_id = time.cafe_id and gu_name = '$guArray[$i]';";
