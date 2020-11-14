@@ -11,23 +11,28 @@ mysqli_query($conn, "set session character_set_client=utf8;");
 if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
 
 
+//카페 개수 + 1 == 새로운 카페 등록 카페 id
+$cafe_ = "SELECT * FROM cafe;";
+$cafe = mysqli_query($conn, $cafe_);
+$total = mysqli_num_rows($cafe);
 
-$option = isset($_POST['gu']) ? $_POST['gu'] : false;
-   if ($option) {
-      echo htmlentities($_POST['gu'], ENT_QUOTES, "UTF-8");
-   } else {
-     echo "task option is required";
-     exit; 
-   }
+//franchise가 맞는가? cafe_id, franchise, company_name, company_id
+if (isset($franchise) && $franchise=="f") $franchiseDB = 1;
+if (isset($franchise) && $franchise=="p") $franchiseDB = 0;
 
+//매장이용/ 테이크아웃 여부
+if (isset($takeout) && $takeout =="y") $takeoutDB = 0;
+if (isset($takeout) && $takeout =="n") $takeoutDB = 1;
 
+// 카페 정보 입력
 // $user_id = 회원정보 연결 
 $name = $_GET[name];                      //cafe_name
-$title = $_GET[address];                  //cafe_address
-$americano = $GET[americano];             //americano
-// $cafe_id cafe_id auto increment가 아닌 테이블이 많아서 따로 해줘야할듯
-$content = $_GET[content];              //Content
-$URL = './index.php';                   //return URL
+$company = $_GET[company_name];           //company_name
+
+
+// 도로명 주소 서울특별시 gu 상세주소 합치기
+$address = $_GET[address];         //상세 정보 cafe_address
+$full_address = "서울특별시", $gu, $address;
 
 $cafe_query = "insert into cafe (cafe_name, cafe_address, user_id) 
     values('$name', '$title',0, '$id', '$user_id')";
@@ -43,77 +48,49 @@ if($result){
 else{
     echo "FAIL";
         }
-        
-        
 
-$americano_query =  "insert into americano (cafe_id, price) values('$cafe_id','$americano')";
+
+//아메리카노 지수 입력 americano table
+$americano = $GET[americano];             //americano
+$americano_query =  "INSERT into americano values('$total+1','$americano')";
 $result = $connect->query($americano_query);
+
+//카페 넓이 입력 area table
+$area = $GET[area];
+$area_query =  "INSERT into area values('$total+1','$area', $takeoutDB')";
+$result = $connect->query($area_query);
+
+//프랜차이즈 정보 입력 franchise table
+$franchise_query = "INSERT into company values ('$total+1', '$franchiseDB', '$company', company_id)";
+$result = $connect->query($franchise_query);
+
+//영업시간 입력
+$mon_o = $_GET[mon_o];
+$mon_c = $_GET[mon_c];
+$tue_o = $_GET[tue_o];
+$tue_c = $_GET[tue_c];
+$wed_o = $_GET[wed_o];
+$wed_c = $_GET[wed_c];
+$thur_o = $_GET[thur_o];
+$thur_c = $_GET[thur_c];
+$fri_o = $_GET[fri_o];
+$fri_c = $_GET[fri_c];
+$sat_o = $_GET[sat_o];
+$sat_c = $_GET[sat_c];
+$sun_o = $_GET[sun_o];
+$sun_c = $_GET[sun_c];
+$time_query =  "INSERT into time values('$total+1','$mon_o','$mon_c','$tue_o','$tue_c','$wed_o','$wed_c'
+,'$thur_o','$thur_c','$fri_o','$fri_c','$sat_o','$sat_c','$sun_o','$sun_c')";
+$result = $connect->query($time_query);
+       
 mysqli_close($connect);
 ?>
-        <!-- create table time(
-            cafe_id int  primary key,
-            mon_open int,
-            mon_close int,
-            tue_open int,
-            tue_close int,
-            wed_open int,
-            wed_close int,
-            thur_open int,
-            thur_close int,
-            fri_open int,
-            fri_close int,
-            sat_open int,
-            sat_close int,
-            sun_open int,
-            sun_close int,
-            foreign key (cafe_id) references cafe (cafe_id) ON DELETE CASCADE
-            );
-            describe time;
+
             
-            
-            create table rating(
-            cafe_id int  primary key,
-            rating_num int,
-            rating_sum int,
-            rating_one int,
-            rating_two int,
-            rating_three int,
-            rating_four int,
-            rating_five int,
-            foreign key (cafe_id) references cafe (cafe_id) ON DELETE CASCADE
-            );
-            describe rating;
-            
-            
-            create table gu(
+ <!--         create table gu(
             cafe_gu int primary key auto_increment,
             cafe_id int,
             gu_name varchar(50),
-            foreign key (cafe_id) references cafe (cafe_id) ON DELETE CASCADE );
-            describe gu;
-        
-            create table company(
-            cafe_id int primary key,
-            franchise bool,
-            company_name varchar(50),
-            company_id int,
-            foreign key (cafe_id) references cafe (cafe_id) ON DELETE CASCADE
-            );
-            describe company;
-            
-   
-            
-            create table location(
-            cafe_id int not null primary key,
-            latitude float(10,4),
-            longitude float(10,4),
-            foreign key (cafe_id) references cafe (cafe_id) ON DELETE CASCADE
-            );
-            describe location;
-            
-            
-            cafe_id int primary key,
-            cafe_area float(5,2),
-            takeout bool,
-           
  -->
+
+ 

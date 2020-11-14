@@ -135,6 +135,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     'fri ',round($mon_o[8]),"\t", round($mon_o[9]), 'sat ',round($mon_o[10]),"\t", round($mon_o[11]),
     'sun ',round($mon_o[12]),"\t", round($mon_o[13]),"<br>";
     }
+    echo ""
     ?>
     </div>
   </body>

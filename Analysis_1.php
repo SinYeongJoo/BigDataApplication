@@ -10,13 +10,6 @@ mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
 if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
-  $cafe_ = "SELECT * FROM cafe;";
-  $cafe = mysqli_query($conn, $cafe_);
-  $total = mysqli_num_rows($cafe);
-  $franchise_ = "SELECT * FROM company where franchise = 1;";
-  $franchise = mysqli_query($conn, $franchise_);
-  $franchiseTotal = mysqli_num_rows($franchise);
-  $personalTotal = $total - $franchiseTotal;
 ?>
 
 
@@ -134,29 +127,30 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </ul>
     </nav>
 
+    <?php
+      $cafe_ = "SELECT * FROM cafe;";
+      $cafe = mysqli_query($conn, $cafe_);
+      $total = mysqli_num_rows($cafe);
+      $franchise_ = "SELECT * FROM company where franchise = 1;";
+      $franchise = mysqli_query($conn, $franchise_);
+      $franchiseTotal = mysqli_num_rows($franchise);
+      $personalTotal = $total - $franchiseTotal;
+      $top_ = "SELECT company_name, avg(rating_sum/rating_num) 
+      from (cafe natural join company natural join rating) 
+      where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
+      $top =  mysqli_query($conn, $top_);
+    ?>
 
-    <?php while($cafedata = mysqli_fetch_assoc($cafe)){  
-  $id =  $cafedata['cafe_id']; 
-  $name = $cafedata['cafe_name']; 
-  $address = $cafedata['cafe_address'];  
-  //$franchiseCount = ;
-  }
-
-  ?> 
     <div class="analysis_div"> 
-    <p class="font1"> 서울시 전체 카페 수 </p>
-    <p class="font1"><?php echo $total?></p>
-    <p class="font1"> 서울시 프랜차이즈 카페 수 </p> 
-    <p class="font1"><?php echo $franchiseTotal?></p>
+    <p class="font1"> 서울시 전체 카페 수 <?php echo $total?> </p>
+    <p class="font1"> 서울시 프랜차이즈 카페 수 <?php echo $franchiseTotal?></p>  
+    <p class="font1"> 서울시 개인 카페 수 <?php echo $personalTotal?></p>
 
-    <!-- <p class="font1"> <?php echo ''.$id.'';?></p>
-    <p class="font1"> <?php echo ''.$name.'';?></p>
-    <p class="font1"> <?php echo ''.$address.'';?></p> -->
+    <p class="font1"> 서울시 프랜차이즈 카페 인기 짱! TOP 5 </p>
+    <?php  while($result = mysqli_fetch_row($top)){
+        echo $result[0],"  ",round($result[1],2),"<br>\n";}
+        ?>
     
-    <p class="font1"> 서울시 개인 카페 수 </p>
-    <p class="font1"><?php echo $personalTotal?></p>
-
-
     </div>
 
 

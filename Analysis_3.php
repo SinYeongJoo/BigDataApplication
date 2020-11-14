@@ -117,13 +117,18 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </ul>
     </nav>
     <div class="analysis_div">
+
+
     <?php
-    $rating_ = "SELECT cafe_name,rating_sum/rating_num FROM rating, cafe where cafe.cafe_id=rating.cafe_id order by rating_sum/rating_num desc;";
-    $rating = mysqli_query($conn, $rating_);
-    while($price = mysqli_fetch_row($rating)){
-    echo $price[0],"  " ,round($price[1],2),"<br>\n";
+    $takeout_ = "select cafe_name,cafe_address,rating_sum/rating_num 
+    from cafe natural join area natural join rating 
+    where takeout = 1 order by rating_sum/rating_num desc;";
+    $takeout = mysqli_query($conn, $takeout_);
+    while($result = mysqli_fetch_row($takeout)){
+    echo $result[0],"  " ,$result[1],"  ",round($result[2],2),"<br>\n";
     }
     ?>
+
     </div>
   </body>
 </html>

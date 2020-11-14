@@ -135,7 +135,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         "은평구","종로구","중구","중랑구");
 
     for ($i = 0; $i < 25; $i++){
-    $americano_ = "SELECT avg(price) FROM gu, americano where gu.cafe_id = americano.cafe_id and gu_name = '$guArray[$i]';";
+    $americano_ = "SELECT avg(price) FROM gu natural join americano where gu.cafe_id = americano.cafe_id and gu_name = '$guArray[$i]';";
     $americano = mysqli_query($conn, $americano_);
     // $price = mysql
     $price = mysqli_fetch_row($americano);

@@ -36,15 +36,15 @@
 <table class = "table2">
         <br>
         &nbsp&nbsp&nbsp&nbsp개인 카페인가요? &nbsp&nbsp&nbsp&nbsp
-        <input type="radio" name="franchise" value="프랜차이즈"> 프랜차이즈 
+        <input type="radio" name="franchise" value="f"> 프랜차이즈 
         &nbsp&nbsp
-        <input type="radio" name="franchise" value="개인"> 개인
+        <input type="radio" name="franchise" value="p"> 개인
 
         <br><br>
         &nbsp&nbsp&nbsp 매장 이용/테이크아웃 모두 가능한가요? &nbsp&nbsp&nbsp&nbsp
-        <input type="radio" name="cantakeout" value="프랜차이즈"> 네.
+        <input type="radio" name="takeout" value="y"> 네.
         &nbsp&nbsp
-        <input type="radio" name="onlytakeout" value="개인"> 아니오. 테이크아웃만 가능합니다.
+        <input type="radio" name="takeout" value="n"> 아니오. 테이크아웃만 가능합니다.
         
 
 
@@ -61,8 +61,8 @@
         <td>
         서울특별시&nbsp&nbsp
         <select name="gu">
-        <option value="강남">강남구</option>
-        <option value="강동">강동구</option>
+        <option value="강남구">강남구</option>
+        <option value="강동구">강동구</option>
         <option value="ㄱㅂ">강북구</option>
         <option value="ㄱㅅ">강서구</option>
         <option value="ㄱㅇ">관악구</option>
@@ -109,8 +109,8 @@
  
         <tr>
         <td>영업 시간</td>
-        <td>월&nbsp&nbsp<input type= "number" name="mon_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="mon_c" min="1" max="2">
+        <td>월&nbsp&nbsp<input type= "number" name="mon_o" min="1" max="2" placeholder="7">
+        &nbsp~&nbsp<input type= "number" name="mon_c" min="1" max="2" placeholder="21">
         <br>
         화&nbsp&nbsp<input type= "number" name="tue_o" min="1" max="2">
         &nbsp~&nbsp<input type= "number" name="tue_c" min="1" max="2">
