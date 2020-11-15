@@ -112,31 +112,31 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <ul>
         <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li class="liNow"><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
     <div class="analysis_div">
+    <p>월요일 기준 운영시간</p>
     <?php
-        $guArray = array("강남구","강동구","강북구","강서구","관악구","광진구","구로구",
-        "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
-        "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
-        "은평구","종로구","중구","중랑구");
+  for ($i=0; $i<14; $i++){
+  $time_= "SELECT count(cafe_id) FROM cafe natural join time where mon_open = $i;";
+  $time = mysqli_query($conn, $time_);
+ while ($result = mysqli_fetch_row($time)){
+  echo $i,"시 :", $result[0],"<br>\n";
+}
+  }
 
-    for ($i = 0; $i < 25; $i++){
-    $time_ = "SELECT avg(mon_open),avg(mon_close),avg(tue_open),avg(tue_close),avg(wed_open),avg(wed_close),
-    avg(thur_open),avg(thur_close),avg(fri_open),avg(fri_close),avg(sat_open),avg(sat_close),
-    avg(sun_open),avg(sun_close) FROM gu, time where gu.cafe_id = time.cafe_id and gu_name = '$guArray[$i]';";
+  for ($i=1; $i<25; $i++){
+    $time_= "SELECT count(cafe_id) FROM cafe natural join time where mon_close = $i;";
     $time = mysqli_query($conn, $time_);
-    $mon_o = mysqli_fetch_row($time);
-    echo $guArray[$i],': mon',round($mon_o[0]),"\t", round($mon_o[1]),'tue ',round($mon_o[2]),"\t", round($mon_o[3]),
-    'wed ',round($mon_o[4]),"\t", round($mon_o[5]), 'thur ',round($mon_o[6]),"\t", round($mon_o[7]),
-    'fri ',round($mon_o[8]),"\t", round($mon_o[9]), 'sat ',round($mon_o[10]),"\t", round($mon_o[11]),
-    'sun ',round($mon_o[12]),"\t", round($mon_o[13]),"<br>";
+   while ($result = mysqli_fetch_row($time)){
+    echo $i,"시 :", $result[0],"<br>\n";
+  }
     }
-    echo ""
     ?>
+
     </div>
   </body>
 </html>
