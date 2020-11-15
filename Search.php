@@ -117,17 +117,25 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </form>
       <?php }?>
     </div>
-  
+
+
+
+
+
+
     <?php
-        $cafedetail = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_id = $cafe_id_detail";
+        $cafedetail = "SELECT * FROM cafe,rating,img where cafe.cafe_id = rating.cafe_id=img.cafe_id and cafe.cafe_id = $cafe_id_detail;";
         $cafedetailresult = mysqli_query($conn, $cafedetail);
-        $cafedetaildata = mysqli_fetch_assoc($cafedetailresult)
+        $cafedetaildata = mysqli_fetch_assoc($cafedetailresult);
     ?>
     <div class = "cafe_detail_div">
       <p class = "cafe_name_p">
       <?php echo $cafedetaildata['cafe_name'] ?>
       </p>
-      <div class = "cafe_photo_div"></div>
+      <div class = "cafe_photo_div">
+      <!-- <img src = ""> -->
+      <?php echo $cafedetaildata['src']?>
+      </div>
       <div class = "cafe_address_1_div">
         <img src = "images/location.png" width = "21px">
         <?php echo $cafedetaildata['cafe_address'] ?>
@@ -136,6 +144,32 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <img src = "images/star.png" style = "width:21px">
         <?php echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2) ?>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
       <br><br>
       별점을 입력해주세요~
       <br/><br/>

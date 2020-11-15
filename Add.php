@@ -63,33 +63,33 @@
         <select name="gu">
         <option value="강남구">강남구</option>
         <option value="강동구">강동구</option>
-        <option value="ㄱㅂ">강북구</option>
-        <option value="ㄱㅅ">강서구</option>
-        <option value="ㄱㅇ">관악구</option>
+        <option value="강북구">강북구</option>
+        <option value="강서구">강서구</option>
+        <option value="관악구">관악구</option>
         
-        <option value="ㄱㅈ">광진구</option>
-        <option value="ㄱㄹ">구로구</option>
-        <option value="ㄱㅊ">금천구</option>
-        <option value="ㄴㅇ">노원구</option>
-        <option value="ㄷㅂ">도봉구</option>
+        <option value="광진구">광진구</option>
+        <option value="구로구">구로구</option>
+        <option value="금천구">금천구</option>
+        <option value="노원구">노원구</option>
+        <option value="도봉구">도봉구</option>
         
-        <option value="ㄷㄷㅁ">동대문구</option>
-        <option value="ㄷㅈ">동작구</option>
-        <option value="ㅁㅍ">마포구</option>
-        <option value="ㅅㄷㅁ">서대문구</option>
-        <option value="ㅅㅊ">서초구</option>
+        <option value="동대문구">동대문구</option>
+        <option value="동작구">동작구</option>
+        <option value="마포구">마포구</option>
+        <option value="서대문구">서대문구</option>
+        <option value="서초구">서초구</option>
         
-        <option value="ㅅㄷ">성동구</option>
-        <option value="ㅅㅂ">성북구</option>
-        <option value="ㅅㅍ">송파구</option>
-        <option value="ㅇㅊ">양천구</option>
-        <option value="ㅇㄷ">영등포구</option>
+        <option value="성동구">성동구</option>
+        <option value="성북구">성북구</option>
+        <option value="송파구">송파구</option>
+        <option value="양천구">양천구</option>
+        <option value="영등포구">영등포구</option>
         
-        <option value="ㅇㅅ">용산구</option>
-        <option value="ㅇㅍ">은평구</option>
-        <option value="종로">종로구</option>
-        <option value="ㅈ">중구</option>
-        <option value="중랑">중랑구</option>
+        <option value="용산구">용산구</option>
+        <option value="은평구">은평구</option>
+        <option value="종로구">종로구</option>
+        <option value="중구">중구</option>
+        <option value="중랑구">중랑구</option>
         </select>
         <input type=text name=address2 placeholder=상세주소 size=50>  
         </td>
@@ -97,38 +97,38 @@
 
         <tr>
         <td>매장 넓이</td>
-        <td><input type="number" name="area"" min="1" max="7">&nbsp&nbsp미터제곱</td>
+        <td><input type="number" name="area"" min="0" max="1000">&nbsp&nbsp미터제곱</td>
         </tr>
 
         <tr>
         <td>아메리카노 가격</td>
-        <td><input type="number" name="americano" min="3" max="7">&nbsp&nbsp원</td>
+        <td><input type="number" name="americano" min="0" max="50000">&nbsp&nbsp원</td>
         </tr>
 
 
  
         <tr>
         <td>영업 시간</td>
-        <td>월&nbsp&nbsp<input type= "number" name="mon_o" min="1" max="2" placeholder="7">
-        &nbsp~&nbsp<input type= "number" name="mon_c" min="1" max="2" placeholder="21">
+        <td>월&nbsp&nbsp<input type= "number" name="mon_o" min="0" max="24" placeholder="7">
+        &nbsp~&nbsp<input type= "number" name="mon_c" min="0" max="24" placeholder="21">
         <br>
-        화&nbsp&nbsp<input type= "number" name="tue_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="tue_c" min="1" max="2">
+        화&nbsp&nbsp<input type= "number" name="tue_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="tue_c" min="0" max="24">
         <br> 
-        수&nbsp&nbsp<input type= "number" name="wed_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="wed_c" min="1" max="2">
+        수&nbsp&nbsp<input type= "number" name="wed_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="wed_c" min="0" max="24">
         <br>
-        목&nbsp&nbsp<input type= "number" name="thur_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="thur_c" min="1" max="2">
+        목&nbsp&nbsp<input type= "number" name="thur_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="thur_c" min="0" max="24">
         <br> 
-        금&nbsp&nbsp<input type= "number" name="fri_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="fri_c" min="1" max="2">
+        금&nbsp&nbsp<input type= "number" name="fri_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="fri_c" min="0" max="24">
         <br>
-        토&nbsp&nbsp<input type= "number" name="sat_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="sat_c" min="1" max="2">
+        토&nbsp&nbsp<input type= "number" name="sat_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="sat_c" min="0" max="24">
         <br>
-        일&nbsp&nbsp<input type= "number" name="sun_o" min="1" max="2">
-        &nbsp~&nbsp<input type= "number" name="sun_c" min="1" max="2">
+        일&nbsp&nbsp<input type= "number" name="sun_o" min="0" max="24">
+        &nbsp~&nbsp<input type= "number" name="sun_c"min="0" max="24">
         </td>
 
 

@@ -131,9 +131,11 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       $cafe_ = "SELECT * FROM cafe;";
       $cafe = mysqli_query($conn, $cafe_);
       $total = mysqli_num_rows($cafe);
+
       $franchise_ = "SELECT * FROM company where franchise = 1;";
       $franchise = mysqli_query($conn, $franchise_);
       $franchiseTotal = mysqli_num_rows($franchise);
+      
       $personalTotal = $total - $franchiseTotal;
       $top_ = "SELECT company_name, avg(rating_sum/rating_num) 
       from (cafe natural join company natural join rating) 
@@ -142,7 +144,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     ?>
 
     <div class="analysis_div"> 
-    <p class="font1"> 서울시 전체 카페 수 <?php echo $total?> </p>
+    <p class="font1"> 서울시 전체 카페 수 <?php echo $total?>  </p>
     <p class="font1"> 서울시 프랜차이즈 카페 수 <?php echo $franchiseTotal?></p>  
     <p class="font1"> 서울시 개인 카페 수 <?php echo $personalTotal?></p>
 
