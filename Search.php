@@ -1,39 +1,21 @@
-<!-- <?php
-$keyword = $_POST['keyword'];
+<?php
+$cafe_search = $_GET['cafe_search'];
+$cafe_id_detail = !empty($_GET['cafe_id_detail']) ? (int)$_GET['cafe_id_detail'] : 5;
 $mysql_host='localhost';
 $mysql_user='root';
 $mysql_password='1234';
-$mysql_db='tripwith';
+$mysql_db='cafe';
 $mysql_port=3306;
 $conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
 if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
-  $place = "SELECT * FROM trip_info where city_name = '$keyword'";
-  $placeresult = mysqli_query($conn, $place);
-  $mate = "SELECT mate.*, (select count(*) from mate_member where mate.no=mate_no) count FROM mate where city_name = '$keyword'";
-  $materesult = mysqli_query($conn, $mate);
-?> -->
+?>
 
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TripWith : <!-- <?php echo $keyword?> --> 검색결과</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-    />
     <style type="text/css">
       .logo_button {
             width: 110px;
@@ -81,8 +63,8 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         .cafe_name_p{
           margin-top:15px;
           font-weight: bolder;
-          font-size: 1.8em;
-          padding-left: 35px;
+          font-size: 1.5em;
+          padding-left: 15px;
         }
         .cafe_photo_div{
           border: solid 1px;
@@ -112,50 +94,47 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <div class = "cafe_list_div">  
-      <p>'~~~~~'에 대한 검색 결과</p>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
-      <div id = "each_cafe_div">
-        aa
-      </div>
+      <p>'<?php echo $cafe_search ?>'에 대한 검색 결과</p>
+      <?php
+        $cafesearch = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_name like '%$cafe_search%'";
+        $cafesearchresult = mysqli_query($conn, $cafesearch);
+        while($cafesearchdata = mysqli_fetch_assoc($cafesearchresult)){
+          $each_rating = $cafesearchdata['rating_sum'] / $cafesearchdata['rating_num'];
+      ?>
+      <form method = "GET" action = "Search.php">
+        <select name = "cafe_search" style = "width: 0px; height: 0px">
+          <option value = "<?php echo $cafe_search?>" selected></option>
+        </select>
+
+        <button type = "submit" name = "cafe_id_detail" value = "<?php echo $cafesearchdata['cafe_id']?>" id = "each_cafe_div">
+          <?php echo $cafesearchdata['cafe_name']?>
+          <br/>
+          <?php echo $cafesearchdata['cafe_address'] ?>
+          <br/>
+          <?php echo round($each_rating, 2)?>
+          <br/>
+        </button>
+      </form>
+      <?php }?>
     </div>
+  
+    <?php
+        $cafedetail = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_id = $cafe_id_detail";
+        $cafedetailresult = mysqli_query($conn, $cafedetail);
+        $cafedetaildata = mysqli_fetch_assoc($cafedetailresult)
+    ?>
     <div class = "cafe_detail_div">
       <p class = "cafe_name_p">
-        cafe_name
+      <?php echo $cafedetaildata['cafe_name'] ?>
       </p>
       <div class = "cafe_photo_div"></div>
       <div class = "cafe_address_1_div">
         <img src = "images/location.png" width = "21px">
-        주소주소
+        <?php echo $cafedetaildata['cafe_address'] ?>
       </div>
       <div class = "cafe_address_2_div">
         <img src = "images/star.png" style = "width:21px">
-        3.8
+        <?php echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2) ?>
       </div>
       <br><br>
       별점을 입력해주세요~
@@ -165,21 +144,28 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
-      10
+      <?php echo $cafedetaildata['rating_five'] ?>
       <br/>
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
+      <?php echo $cafedetaildata['rating_four'] ?>
       <br/>
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
+      <?php echo $cafedetaildata['rating_three'] ?>
       <br/>
       <img src = "images/star.png" width = "21px">
       <img src = "images/star.png" width = "21px">
+      <?php echo $cafedetaildata['rating_two'] ?>
       <br/>
       <img src = "images/star.png" width = "21px">
+      <?php echo $cafedetaildata['rating_one'] ?>
     </div>
+    <?php
+    mysqli_close($conn);
+    ?>
   </body>
 </html>

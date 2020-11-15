@@ -1,3 +1,22 @@
+<?php
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+
+// $select_query = "SELECT DISTINCT cafe_id FROM rating ORDER BY rating_sum/rating_num DESC limit 3";
+// $result_set = mysqli_query($conn, $select_query);
+
+$select_query = "SELECT * FROM cafe";
+$result_set = mysqli_query($conn, $select_query);
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -102,7 +121,6 @@
             padding-right: 10px;
             margin-top:-12px;
             float: left;
-            background-color: blue;
         }
     </style>
 </head>
@@ -115,14 +133,10 @@
     <div class = "intro_div">
         어쩌구 저쩌구<br/>우리 최고!
     </div>
-        <form>
-            <input type="text" id="search_data" class = "search_input"/>
-            <input
-                type="button"
-                class="search_button"
-                value="search"
-                onClick="location.href='Search.php'"
-            ></input>
+
+        <form method="GET" action="Search.php">
+            <input type="text" id="search_data" class = "search_input" name = "cafe_search"/>
+            <button type="submit" class="search_button" value="search">SEARCH</button>
         </form>
 
     <div class = "map_wrap">
@@ -130,20 +144,24 @@
             <input type="image" src="images/seoul_map_all.png" id = "map_image" onclick="location.href='Search.php'">
         </form>
     </div>
-
+    
     <div class = "recco_wrap">
+        <?php 
+        $rating_ = "SELECT cafe_name,rating_sum/rating_num FROM rating, cafe where cafe.cafe_id=rating.cafe_id order by rating_sum/rating_num desc;";
+        $rating = mysqli_query($conn, $rating_);?>
             <p style="padding-left:17px; font-size: 1.5em; font-weight: bold;">별점이 가장 높은 카페를 만나보세요!</p>
-        <form>
+            <?php $i = 3; while($price=mysqli_fetch_row($rating)){ ?>
             <div id = "recco_one_div">
-                1
+                <?php 
+                echo $price[0],"  " ,round($price[1],2),"<br>\n"; 
+                $i--;
+                if($i <= 0) break;
+                ?>
             </div>
-            <div id = "recco_one_div">
-                2
-            </div>
-            <div id = "recco_one_div">
-                3
-            </div>
-        </form>
+        <?php } ?>
     </div>
+    <?php
+    mysqli_close($conn);
+    ?>
 </body>
 </html>
