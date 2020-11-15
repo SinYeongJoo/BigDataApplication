@@ -1,3 +1,16 @@
+<?php
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -96,14 +109,33 @@
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div>커피를 분석해 어쩌구 저쩌구</div>
     <nav id="topMenu">
-      <ul>
-        <li><a class="menuLink" href="Analysis_1.php">1</a></li>
-        <li class="liNow"><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">3</a></li>
-        <li><a class="menuLink" href="Analysis_4.php">4</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+    <ul>
+        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
+        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
-    <div class="analysis_div">aa</div>
+    <div class="analysis_div">
+
+    <?php
+    $guArray = array("강남구","강동구","강북구","강서구","관악구","광진구","구로구",
+    "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
+    "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
+    "은평구","종로구","중구","중랑구");
+    for ($i = 0; $i < 25; $i++){
+    $guNum_ = "SELECT count(cafe_id) FROM gu where gu_name = '$guArray[$i]';";
+    $guNum = mysqli_query($conn, $guNum_);
+    $total = mysqli_fetch_row($guNum);
+    echo $guArray[$i];
+    echo ':';
+    echo $total[0];
+    echo "<br>\n";
+    }
+    ?>
+
+
+    </div>
   </body>
 </html>

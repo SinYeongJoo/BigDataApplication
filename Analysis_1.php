@@ -1,3 +1,18 @@
+<?php
+//$keyword = $_POST['keyword'];
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+?>
+
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -87,6 +102,12 @@
             top:20px;
             right:90px;
         }
+        .font1{
+          font-size: 20px;
+          text-align:center; 
+          font-weight: bold; 
+          line-height:1.0em;
+        }
     </style>
   </head>
   <body>
@@ -95,16 +116,44 @@
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     
-    <div>커피를 분석해 어쩌구 저쩌구</div>
+    <div>Advanced Analysis</div>
     <nav id="topMenu">
-      <ul>
-        <li class="liNow"><a class="menuLink" href="Analysis_1.php">1</a></li>
-        <li><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">3</a></li>
-        <li><a class="menuLink" href="Analysis_4.php">4</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+    <ul>
+        <li class="liNow"><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
+        <li><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
-    <div class="analysis_div">aa</div>
+
+    <?php
+      $cafe_ = "SELECT * FROM cafe;";
+      $cafe = mysqli_query($conn, $cafe_);
+      $total = mysqli_num_rows($cafe);
+      $franchise_ = "SELECT * FROM company where franchise = 1;";
+      $franchise = mysqli_query($conn, $franchise_);
+      $franchiseTotal = mysqli_num_rows($franchise);
+      $personalTotal = $total - $franchiseTotal;
+      $top_ = "SELECT company_name, avg(rating_sum/rating_num) 
+      from (cafe natural join company natural join rating) 
+      where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
+      $top =  mysqli_query($conn, $top_);
+    ?>
+
+    <div class="analysis_div"> 
+    <p class="font1"> 서울시 전체 카페 수 <?php echo $total?> </p>
+    <p class="font1"> 서울시 프랜차이즈 카페 수 <?php echo $franchiseTotal?></p>  
+    <p class="font1"> 서울시 개인 카페 수 <?php echo $personalTotal?></p>
+
+    <p class="font1"> 서울시 프랜차이즈 카페 인기 짱! TOP 5 </p>
+    <?php  while($result = mysqli_fetch_row($top)){
+        echo $result[0],"  ",round($result[1],2),"<br>\n";}
+        ?>
+    
+    </div>
+
+
+  <?php mysqli_close($conn);?>
   </body>
 </html>

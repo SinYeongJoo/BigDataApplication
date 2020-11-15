@@ -1,3 +1,15 @@
+<?php
+$mysql_host='localhost';
+$mysql_user='root';
+$mysql_password='1234';
+$mysql_db='cafe';
+$mysql_port=3306;
+$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+mysqli_query($conn, "set session character_set_connection=utf8;");
+mysqli_query($conn, "set session character_set_results=utf8;");
+mysqli_query($conn, "set session character_set_client=utf8;");
+if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+?>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -94,16 +106,29 @@
     <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
-    <div>커피를 분석해 어쩌구 저쩌구</div>
+    <div>Advanced Analysis 3 </div>
     <nav id="topMenu">
-      <ul>
-        <li><a class="menuLink" href="Analysis_1.php">1</a></li>
-        <li><a class="menuLink" href="Analysis_2.php">2</a></li>
-        <li class="liNow"><a class="menuLink" href="Analysis_3.php">3</a></li>
-        <li><a class="menuLink" href="Analysis_4.php">4</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">5</a></li>
+    <ul>
+        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_3.php">Rating</a></li>        
+        <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
-    <div class="analysis_div">aa</div>
+    <div class="analysis_div">
+
+
+    <?php
+    $takeout_ = "select cafe_name,cafe_address,rating_sum/rating_num 
+    from cafe natural join area natural join rating 
+    where takeout = 1 order by rating_sum/rating_num desc;";
+    $takeout = mysqli_query($conn, $takeout_);
+    while($result = mysqli_fetch_row($takeout)){
+    echo $result[0],"  " ,$result[1],"  ",round($result[2],2),"<br>\n";
+    }
+    ?>
+
+    </div>
   </body>
 </html>
