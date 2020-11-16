@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  <title>tripwith : 로그인</title>
-  <link rel = "stylesheet" href = "mystyle.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta charset="UTF-8">
 <style type="text/css">
 .login_box{  
   position: absolute;
@@ -42,8 +37,8 @@
 }
 #email_pw_text{
   margin-left:10px; 
-  margin-top:40px; 
-  margin-bottom: 10px;
+  margin-top:15px; 
+  margin-bottom: 5px;
   font-size:20px; 
   font-weight: bold;
   margin-left: 40px;
@@ -57,7 +52,7 @@
   margin-left: 40px;
 }
 .login{
-  margin-top: 53px;
+  margin-top: 35px;
   width: 360px;
   height: 57px;
   font-size: 18px;
@@ -91,30 +86,31 @@
   </div>
   <div class="login_box">
         <form method="POST" action="Join_back.php">
+          <p id = "email_pw_text">Please write your name</p>
+          <input type="text" class="email_pw_input" id="ex4-name-input" name="username" placeholder="Please write your name"/>
           <p id = "email_pw_text">Please write your E-mail</p>
-          <input type="text" class="email_pw_input"  value="" id="ex4-email-input" name="email" placeholder="Please write your E-mail"/>
+          <input type="text" class="email_pw_input" id="ex4-email-input" name="email" placeholder="Please write your E-mail"/>
           <p id = "email_pw_text">Please write your password</p>
-          <input type="password" class="email_pw_input"  value="" id="ex4-pw-input" name="password" placeholder="Please write your password"/>
+          <input type="password" class="email_pw_input" id="ex4-pw-input" name="password" placeholder="Please write your password"/>
           <input type="submit" value="Join" class="login">
           <br><br>
           <a href = "Login.php" style = "font-size: 18px; padding-left: 120px; color: #777777; text-decoration: none;">이미 계정이 있으신가요?</a>  
       </form>
   </div>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 (function cleanText($) {
-        var $pw = $('#ex4-email-input, #ex4-pw-input')
-        $pw.on('click focus', function () {
-          $(this).siblings('label').hide()
-        });
-        $pw.on('blur', function () {
-          $this = $(this)
-          if ($.trim($this.val()).length === 0) {
-            $this.siblings('label').show()
-          }
-        });
-      })(jQuery);
-
-</script> -->
+  var $pw = $('#ex4-email-input, #ex4-pw-input, #ex4-name-input')
+  $pw.on('click focus', function() {
+    $(this).siblings('label').hide()
+  });
+  $pw.on('blur', function() {
+    $this = $(this)
+    if ($.trim($this.val()).length === 0) {
+      $this.siblings('label').show()
+    }
+  });
+})(jQuery);
+</script>
 </body>
 </html> 
