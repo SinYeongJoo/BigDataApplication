@@ -84,30 +84,35 @@
         <!-- <?php  ?> -->
         <!-- p 뒤에 괄호 넣어야함 -->
 
-      <!-- 탈퇴 php 구현 안됨 -->
-      <div>
-        <button
-          style="
-            color: #ff3300;
-            font-size: 18px;
-            background-color: white;
-            border: 0px;
-          "
-          onclick="location.href='Logout.php'"
-        >
-          회원 탈퇴
-        </button>
-        <button
-          style="
-            color: #ff3300;
-            font-size: 18px;
-            background-color: white;
-            border: 0px;
-          "
-          onclick="location.href='Logout.php'"
-        >
-          로그아웃
-        </button>
+    <!-- 회원탈퇴 -->
+    <form method = "POST" action = "Mypage.php">
+    <input type = "submit" name = "withdrawal"  value="회원 탈퇴"/>
+    </form>
+
+    <?php 
+function withdrawal() { 
+ $email = $_SESSION['email'];
+ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+ $member_out = "DELETE from member where user_email = '$email';";
+//  SET @ CNT = 0;
+//  UPDATE member SET member.user_id = @CNT:= @CNT+1; 
+mysqli_query($conn, $member_out);
+}    
+if(array_key_exists('withdrawal',$_POST)) withdrawal();
+?>
+
+ <script>
+//alert("회원탈퇴가 완료되었습니다.");
+//location.href='Main.php'; 
+</script>
+
+
+<button style="
+      color: #ff3300;
+      font-size: 18px;
+      background-color: white;
+      border: 0px;"
+  onclick="location.href='Logout.php'">로그아웃</button>
       </div>
     </div>
   </body>

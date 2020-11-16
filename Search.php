@@ -118,7 +118,12 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </form>
       <?php }?>
     </div>
-  
+
+
+
+
+
+
     <?php
     if($cafe_id_detail == -1){
       ?>
@@ -147,6 +152,32 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <img src = "images/star.png" style = "width:21px">
         <?php echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2) ?>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
       <br><br>
       당신의 별점을 입력해주세요
       <form method="post" action="Search_back.php">
