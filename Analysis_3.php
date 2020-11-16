@@ -166,14 +166,14 @@ $guArray = array("강남구","강동구","강북구","강서구","관악구","�
         "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
         "은평구","종로구","중구","중랑구");
  $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
- $cafedetail = "SELECT cafe_name,cafe_address,gu_name FROM cafe natural join area natural join gu 
+ $cafe_ = "SELECT cafe_name,cafe_address FROM cafe natural join area natural join gu 
  where takeout = 0 and gu_name = '$guArray[$id]'";
- $cafedetailresult = mysqli_query($conn, $cafedetail);
- while($cafedetaildata = mysqli_fetch_assoc($cafedetailresult)){      
+ $cafe = mysqli_query($conn, $cafe_);
+ while($cafeGu = mysqli_fetch_assoc($cafe)){      
    ?>
 <button> 
 <?php  
-echo $cafedetaildata['cafe_name'],"     ",$cafedetaildata['cafe_address']; }
+echo $cafeGu['cafe_name'],"     ",$cafeGu['cafe_address']; }
  } 
 ?>
 </button>

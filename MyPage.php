@@ -84,28 +84,22 @@
         <!-- <?php  ?> -->
         <!-- p 뒤에 괄호 넣어야함 -->
 
-
-
-
-
-
-
-
     <!-- 회원탈퇴 -->
     <form method = "POST" action = "Mypage.php">
     <input type = "submit" name = "withdrawal"  value="회원 탈퇴"/>
     </form>
-    <?php 
-function withdrawal($id) { 
- $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
- $cafedetail = 
-"DELETE from member where user_email = $_SESSION['email'];
- SET @ CNT = 0;
- UPDATE member SET member.user_id = @CNT:=@CNT+1; ";
- $cafedetailresult = mysqli_query($conn, $cafedetail);
- while($cafedetaildata = mysqli_fetch_assoc($cafedetailresult)){      
-if(array_key_exists('withdrawal',$_POST)) withdrawal();?>
 
+    <?php 
+function withdrawal() { 
+ $email = $_SESSION['email'];
+ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+ $member_out = "DELETE from member where user_email = '$email';";
+//  SET @ CNT = 0;
+//  UPDATE member SET member.user_id = @CNT:= @CNT+1; 
+mysqli_query($conn, $member_out);
+}    
+if(array_key_exists('withdrawal',$_POST)) withdrawal();
+?>
 
  <script>
 //alert("회원탈퇴가 완료되었습니다.");

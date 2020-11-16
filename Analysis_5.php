@@ -118,25 +118,88 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </ul>
     </nav>
     <div class="analysis_div">
-    <p>월요일 기준 운영시간</p>
-    <?php
-  for ($i=0; $i<14; $i++){
-  $time_= "SELECT count(cafe_id) FROM cafe natural join time where mon_open = $i;";
-  $time = mysqli_query($conn, $time_);
- while ($result = mysqli_fetch_row($time)){
-  echo $i,"시 :", $result[0],"<br>\n";
-}
-  }
+    <p>오전 12시~ 새벽 운영 카페 </p>
+    <form method = "POST" action = "Analysis_5.php">
+<input type = "submit" name = "gu0"  value="강남구"/>
+<input type = "submit" name = "gu1" value="강동구"/>
+<input type = "submit" name = "gu2"  value="강북구"/>
+<input type = "submit" name = "gu3" value="강서구"/>
+<input type = "submit" name = "gu4" value="관악구"/>
 
-  for ($i=1; $i<25; $i++){
-    $time_= "SELECT count(cafe_id) FROM cafe natural join time where mon_close = $i;";
-    $time = mysqli_query($conn, $time_);
-   while ($result = mysqli_fetch_row($time)){
-    echo $i,"시 :", $result[0],"<br>\n";
-  }
-    }
-    ?>
+<input type = "submit" name = "gu5"  value="광진구"/>
+<input type = "submit" name = "gu6" value="구로구"/>
+<input type = "submit" name = "gu7"  value="금천구"/>
+<input type = "submit" name = "gu8" value="노원구"/>
+<input type = "submit" name = "gu9"  value="도봉구"/>
 
+<input type = "submit" name = "gu10" value="동대문구"/>
+<input type = "submit" name = "gu11"  value="동작구"/>
+<input type = "submit" name = "gu12" value="마포구"/>
+<input type = "submit" name = "gu13"  value="서대문구"/>
+<input type = "submit" name = "gu14" value="서초구"/>
+
+<input type = "submit" name = "gu15"  value="성동구"/>
+<input type = "submit" name = "gu16" value="성북구"/>
+<input type = "submit" name = "gu17"  value="송파구"/>
+<input type = "submit" name = "gu18" value="양천구"/>
+<input type = "submit" name = "gu19"  value="영등포구"/>
+
+<input type = "submit" name = "gu20" value="용산구"/>
+<input type = "submit" name = "gu21"  value="은평구"/>
+<input type = "submit" name = "gu22" value="종로구"/>
+<input type = "submit" name = "gu23" value="중구"/>
+<input type = "submit" name = "gu24"  value="중랑구"/>
+
+</form> 
+
+
+<?php 
+function show($id) { 
+$guArray = array("강남구","강동구","강북구","강서구","관악구","광진구","구로구",
+        "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
+        "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
+        "은평구","종로구","중구","중랑구");
+ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+ $time_ = "SELECT cafe_name,cafe_address 
+            FROM cafe natural join time natural join gu 
+            WHERE mon_open = 0 and gu_name = '$guArray[$id]';";
+ $time = mysqli_query($conn, $time_);
+ while($result = mysqli_fetch_assoc($time)){      
+   ?>
+<button> 
+<?php  
+echo $result['cafe_name'],"     ",$result['cafe_address']; }
+ } 
+?>
+</button>
+
+<?php
+if(array_key_exists('gu0',$_POST)) show(0);
+else if(array_key_exists('gu1',$_POST)) show(1);
+else if(array_key_exists('gu2',$_POST)) show(2);
+else if(array_key_exists('gu3',$_POST)) show(3);
+else if(array_key_exists('gu4',$_POST)) show(4);
+else if(array_key_exists('gu5',$_POST)) show(5);
+else if(array_key_exists('gu6',$_POST)) show(6);
+else if(array_key_exists('gu7',$_POST)) show(7);
+else if(array_key_exists('gu8',$_POST)) show(8);
+else if(array_key_exists('gu9',$_POST)) show(9);
+else if(array_key_exists('gu10',$_POST)) show(10);
+else if(array_key_exists('gu11',$_POST)) show(11);
+else if(array_key_exists('gu12',$_POST)) show(12);
+else if(array_key_exists('gu13',$_POST)) show(13);
+else if(array_key_exists('gu14',$_POST)) show(14);
+else if(array_key_exists('gu15',$_POST)) show(15);
+else if(array_key_exists('gu16',$_POST)) show(16);
+else if(array_key_exists('gu17',$_POST)) show(17);
+else if(array_key_exists('gu18',$_POST)) show(18);
+else if(array_key_exists('gu19',$_POST)) show(19);
+else if(array_key_exists('gu20',$_POST)) show(20);
+else if(array_key_exists('gu21',$_POST)) show(21);
+else if(array_key_exists('gu22',$_POST)) show(22);
+else if(array_key_exists('gu23',$_POST)) show(23);
+else if(array_key_exists('gu24',$_POST)) show(24);
+?>
     </div>
   </body>
 </html>
