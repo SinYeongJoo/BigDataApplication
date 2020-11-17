@@ -143,11 +143,6 @@ background : teal">  Post your Cafe ! </p>
         SUN&nbsp&nbsp&nbsp<input type= "number" name="sun_o" min="0" max="24">
         &nbsp~&nbsp<input type= "number" name="sun_c"min="0" max="24">
         </td>
-
-
-
-
-
         </td>
         </table>
         <input type = "submit" value="POST" style="border:0; margin-right: 2%; 
