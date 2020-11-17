@@ -108,9 +108,9 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
           height: 16%;
           margin:0.8%;
           display:inline;
-          border:1px bold;
-          border-color:teal;
-          color: gray;
+          border:0;
+          background:teal;
+          color: white;
         }
     </style>
   </head>

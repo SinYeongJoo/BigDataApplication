@@ -120,7 +120,9 @@ $top =  mysqli_query($conn, $top_);
           font-size: 15px;
           text-align:center; 
           font-weight: bold; 
+          color:gray;
           line-height:1.0em;
+          margin:1.5%;
         }
         .countCafe{
           text-align:center;
@@ -136,10 +138,6 @@ $top =  mysqli_query($conn, $top_);
           text-align:center;
           font-size:40px;
           color: teal;
-        }
-        p.ranking{
-          text-align:center;
-          font-weight:bold;
         }
     </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -205,8 +203,11 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
         <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
-    <div class="analysis_div"> 
+    <div class="analysis_div">   
+    <p class="font1" style="background: teal; font-size:30px; color:white; "> Number of cafes in Seoul</p>
     <table style="text-align:center;">
+
+    
     <tr>
     <td>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -224,8 +225,6 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
     <p class="countCafep"></p>
     </td>
     </tr>
-
-
     <tr>
     <td></td>
     <td>
@@ -242,13 +241,14 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
     </tr>
     </table>
 
-  <p class="font1" style="background: teal; font-size:30px;"> Popular Seoul Franchise Café! TOP 5 </p>
+  <p class="font1" style="background: teal; font-size:30px; color:white;">Popular Seoul Franchise Café! TOP 5</p>
+    <br>
     <?php  
     $i = 1;
     while($result = mysqli_fetch_row($top)){?>
-        <p class="ranking">
+        <p class="font1">
         <?php 
-        echo $i,"위 ",$result[0],"  ",round($result[1],2);
+        echo $i,"위&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$result[0],"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",round($result[1],2);
         $i = $i+1;
       }
         ?></p>
