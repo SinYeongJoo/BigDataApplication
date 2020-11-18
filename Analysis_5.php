@@ -112,6 +112,25 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
           left: 8%;
           width: 80%;
         }
+        .hashtag{
+          border:0;
+          color: teal;
+          font-weight: bold;
+          font-size: 15px;
+        }
+        .cafelist{
+          border:0;
+          margin:0;
+          width:49%;
+          border: 1px gray solid; 
+          color:gray;
+        }
+
+
+
+
+
+
     </style>
   </head>
   <body> 
@@ -133,53 +152,54 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <?php } ?>
      <hr style="width: 100%; color: gray; margin-top: 70px;"/>
      <div class = "analysis_intro_div">
-      <p style="font-size: 18px; font-weight: bolder;">Advanced Analysis 4 </p>
+      <p style="font-size: 23px; font-weight: bolder;">Midnight Cafe : Cafe, opened in the midnight ~ dawn</p>
     </div>
-    <div>커피를 분석해 어쩌구 저쩌구</div>
     <nav id="topMenu">
     <ul>
         <li><a class="menuLink" href="Analysis_1.php">Overview</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li class="liNow"><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
       </ul>
     </nav>
     <div class="analysis_div">
-    <p>오전 12시~ 새벽 운영 카페 </p>
+    
+    <p style="text-align: center; color: gray; font-size: 20px;"> 
+    Click your district and check out the cafe opened at midnight to dawn</p>
+    
     <form method = "POST" action = "Analysis_5.php">
-<input type = "submit" name = "gu0"  value="강남구"/>
-<input type = "submit" name = "gu1" value="강동구"/>
-<input type = "submit" name = "gu2"  value="강북구"/>
-<input type = "submit" name = "gu3" value="강서구"/>
-<input type = "submit" name = "gu4" value="관악구"/>
+    <input class= "hashtag" type = "submit" name = "gu0" id="gu0" value="#강남구"/>
+<input class= "hashtag" type = "submit" name = "gu1" value="#강동구"/>
+<input class= "hashtag" type = "submit" name = "gu2"  value="#강북구"/>
+<input class= "hashtag" type = "submit" name = "gu3" value="#강서구"/>
+<input class= "hashtag" type = "submit" name = "gu4" value="#관악구"/>
 
-<input type = "submit" name = "gu5"  value="광진구"/>
-<input type = "submit" name = "gu6" value="구로구"/>
-<input type = "submit" name = "gu7"  value="금천구"/>
-<input type = "submit" name = "gu8" value="노원구"/>
-<input type = "submit" name = "gu9"  value="도봉구"/>
+<input class= "hashtag" type = "submit" name = "gu5"  value="#광진구"/>
+<input class= "hashtag" type = "submit" name = "gu6" value="#구로구"/>
+<input class= "hashtag" type = "submit" name = "gu7"  value="#금천구"/>
+<input class= "hashtag" type = "submit" name = "gu8" value="#노원구"/>
+<input class= "hashtag" type = "submit" name = "gu9"  value="#도봉구"/>
 
-<input type = "submit" name = "gu10" value="동대문구"/>
-<input type = "submit" name = "gu11"  value="동작구"/>
-<input type = "submit" name = "gu12" value="마포구"/>
-<input type = "submit" name = "gu13"  value="서대문구"/>
-<input type = "submit" name = "gu14" value="서초구"/>
+<input class= "hashtag" type = "submit" name = "gu10" value="#동대문구"/>
+<input class= "hashtag" type = "submit" name = "gu11"  value="#동작구"/>
+<input class= "hashtag" type = "submit" name = "gu12" value="#마포구"/>
+<input class= "hashtag" type = "submit" name = "gu13"  value="#서대문구"/>
+<input class= "hashtag" type = "submit" name = "gu14" value="#서초구"/>
 
-<input type = "submit" name = "gu15"  value="성동구"/>
-<input type = "submit" name = "gu16" value="성북구"/>
-<input type = "submit" name = "gu17"  value="송파구"/>
-<input type = "submit" name = "gu18" value="양천구"/>
-<input type = "submit" name = "gu19"  value="영등포구"/>
+<input class= "hashtag" type = "submit" name = "gu15"  value="#성동구"/>
+<input class= "hashtag" type = "submit" name = "gu16" value="#성북구"/>
+<input class= "hashtag" type = "submit" name = "gu17"  value="#송파구"/>
+<input class= "hashtag" type = "submit" name = "gu18" value="#양천구"/>
+<input class= "hashtag" type = "submit" name = "gu19"  value="#영등포구"/>
 
-<input type = "submit" name = "gu20" value="용산구"/>
-<input type = "submit" name = "gu21"  value="은평구"/>
-<input type = "submit" name = "gu22" value="종로구"/>
-<input type = "submit" name = "gu23" value="중구"/>
-<input type = "submit" name = "gu24"  value="중랑구"/>
+<input class= "hashtag" type = "submit" name = "gu20" value="#용산구"/>
+<input class= "hashtag" type = "submit" name = "gu21"  value="#은평구"/>
+<input class= "hashtag" type = "submit" name = "gu22" value="#종로구"/>
+<input class= "hashtag" type = "submit" name = "gu23" value="#중구"/>
+<input class= "hashtag" type = "submit" name = "gu24"  value="#중랑구"/>
 
 </form> 
-
 
 <?php 
 function show($id) { 
@@ -187,26 +207,23 @@ $guArray = array("강남구","강동구","강북구","강서구","관악구","�
         "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
         "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
         "은평구","종로구","중구","중랑구");
-$guEngArray = array("Gangnam-gu","Gangdong-gu","Gangbuk-gu","Gangseo-gu","Gwanak-gu","Gwangjin-gu","Guro-gu",
-        "Geumcheon-gu","Nowon-gu","Dobong-gu","Dongdaemun-gu","Dongjak-gu","Mapo-gu","Seodaemun-gu",
-        "Seocho-gu","Seongdong-gu","Seongbuk-gu","Songpa-gu","Yangcheon-gu","Yeongdeungpo-gu","Yongsan-gu",
-        "Eunpyeong-gu","Jongno-gu","Jung-gu","Jungnang-gu");
  $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
  $time_ = "SELECT cafe_name,cafe_address 
             FROM cafe natural join time natural join gu 
             WHERE mon_open = 0 and gu_name = '$guArray[$id]';";
  $time = mysqli_query($conn, $time_);
+ //echo    $guArray[$id];
  while($result = mysqli_fetch_assoc($time)){      
    ?>
-<button> 
+<button class="cafelist"> 
 <?php  
-echo $result['cafe_name'],"     ",$result['cafe_address']; }
+echo $result['cafe_name'],"  |   ",$result['cafe_address']; }
  } 
 ?>
 </button>
 
 <?php
-if(array_key_exists('gu0',$_POST)) show(0);
+if(array_key_exists('gu0',$_POST)) show(0); 
 else if(array_key_exists('gu1',$_POST)) show(1);
 else if(array_key_exists('gu2',$_POST)) show(2);
 else if(array_key_exists('gu3',$_POST)) show(3);

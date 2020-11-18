@@ -115,8 +115,8 @@ float: right; height: 30px; margin-top: 0.3%">Log out</button>
  $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
  $member_out = "DELETE FROM member WHERE user_id = '$id';"; 
  mysqli_query($conn, $member_out);
- $rearrange = "UPDATE member SET member.user_id = '1';"; 
- mysqli_query($conn, $rearrange);
+// $rearrange = "UPDATE member SET member.user_id = '1';"; 
+// mysqli_query($conn, $rearrange);
  session_destroy();
 echo "<script> alert('회원탈퇴가 완료되었습니다.'); location.href='Main.php';</script>";
 }

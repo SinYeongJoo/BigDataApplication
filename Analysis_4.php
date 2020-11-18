@@ -157,7 +157,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
       </ul>
     </nav>
     <div class="analysis_div">

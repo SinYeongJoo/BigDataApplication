@@ -17,7 +17,7 @@ $franchiseTotal = mysqli_num_rows($franchise);
 $personalTotal = $total - $franchiseTotal;
 $top_ = "SELECT company_name, avg(rating_sum/rating_num) 
 from (cafe natural join company natural join rating) 
-where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
+where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;";
 $top =  mysqli_query($conn, $top_);
 ?>
 
@@ -225,7 +225,7 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
       </ul>
     </nav>
     <div class="analysis_div">   
