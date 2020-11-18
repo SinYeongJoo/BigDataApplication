@@ -68,7 +68,9 @@ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
         
         <tr>
         <td><p style="font-size: 17px; line-height: 2em; color:teal">  Password </p></td>
-        <td style="border-left:1px solid;"> <?php echo $password ?></td>
+        <td style="border-left:1px solid;">
+        <input type=password style="border:0; text-align:center;" value=<?php echo $password ?>/>
+        </td>
         </tr>
         </table>
       </div>
