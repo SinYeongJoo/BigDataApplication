@@ -17,6 +17,24 @@ $user_email = $_SESSION['user_email'];
         margin-left: 20%;
         width: 60%;
       }
+      .logo_button {
+            width: 110px;
+            position:absolute;
+            top:20px;
+      }
+      .login_button {
+            height: 40px;
+            width: 40px;
+            position:absolute;
+            top:20px;
+            right:90px;
+        }
+        .analysis_button {
+            width: 40px;
+            position:absolute;
+            top:20px;
+            right:150px;
+        }
         table.table2{
                 border-collapse: separate;
                 border-spacing: 1px;
@@ -44,6 +62,9 @@ $user_email = $_SESSION['user_email'];
  
 </style>
 <body>
+<input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+<input class = "login_button" type="image" src="images/person.png" onclick="location.href='Mypage.php'">
+<input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
 <form method = "get" action = "Add_action.php">
 <div class="mypage_box">
 <p style="font-size: 19px; line-height: 2.7em; text-align: center; color : white;

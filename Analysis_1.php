@@ -1,11 +1,7 @@
 <?php
-//$keyword = $_POST['keyword'];
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
+session_start();
 $mysql_port=3306;
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -24,8 +20,6 @@ from (cafe natural join company natural join rating)
 where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
 $top =  mysqli_query($conn, $top_);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -91,7 +85,7 @@ $top =  mysqli_query($conn, $top_);
         position: absolute;
         top: 25%;
         left: 20%;
-        height: 82%;
+        height: 500px;
         width: 69%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -120,9 +114,11 @@ $top =  mysqli_query($conn, $top_);
           font-size: 15px;
           text-align:center; 
           font-weight: bold; 
+          margin: 0px;
           color:gray;
           line-height:1.0em;
-          margin:1.5%;
+          margin-bottom:0.8%;
+          border-radius: 5px;
         }
         .countCafe{
           text-align:center;
@@ -138,6 +134,23 @@ $top =  mysqli_query($conn, $top_);
           text-align:center;
           font-size:40px;
           color: teal;
+        }
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
+        }
+        .analysis_intro_div{
+          position: absolute;
+          top:100px;
+          left: 8%;
+          width: 80%;
         }
     </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -183,40 +196,52 @@ $({ val : 0 }).animate({ val : CountPersonalCafe }, {
 });
 
 function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
-
 </script>
 
   </head>
   <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <?php
+    if(isset($_SESSION['user_id'])){
+        $link = 'MyPage.php';
+    }else{
+        $link = 'Login.php';
+    }
+    ?>
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='<?php echo $link ?>'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
+    <?php
+    if(isset($_SESSION['user_id'])){?>
+    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <?php } ?>
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
-    
-    <div>Advanced Analysis</div>
+    <div class = "analysis_intro_div">
+      <p style="font-size: 23px; font-weight: bolder;">
+      &nbspOverview : &nbspNumber of cafes in Seoul &  Popular Seoul Franchise Cafe! TOP 5</p>
+    </div>
     <nav id="topMenu">
     <ul>
-        <li class="liNow"><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li class="liNow"><a class="menuLink" href="Analysis_1.php">Overview</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Store available</a></li>        
+        <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
     <div class="analysis_div">   
-    <p class="font1" style="background: teal; font-size:30px; color:white; "> Number of cafes in Seoul</p>
-    <table style="text-align:center;">
-
+    <p class="font1" style="background: teal; height: 8%;font-size:25px; color:white; "> Number of cafes in Seoul</p>
     
+    <table style="text-align:center; margin-bottom:5%;">
     <tr>
     <td>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
     </td>
     <td> 
     <p class="countCafe"></p>
     </td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td> 
     <p class="countCafef"></p>
     </td>
@@ -241,18 +266,31 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
     </tr>
     </table>
 
-  <p class="font1" style="background: teal; font-size:30px; color:white;">Popular Seoul Franchise Café! TOP 5</p>
+  <p class="font1" style="background: teal; height: 8%; font-size:25px; color:white;">
+  Popular Seoul Franchise Cafe! TOP 5</p>
+    <table  style="text-align:center; width:100%;">
     <br>
-    <?php  
+<?php  
     $i = 1;
-    while($result = mysqli_fetch_row($top)){?>
-        <p class="font1">
-        <?php 
-        echo $i,"위&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$result[0],"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",round($result[1],2);
-        $i = $i+1;
-      }
-        ?></p>
-    
+    while($result = mysqli_fetch_row($top)){ ?>
+        <tr> 
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td>
+        <p class="font1" style="font-size: 20px;"> <?php echo $i; ?> </p>
+        </td>
+        <td>
+        <p class="font1" style="font-size: 20px;"> 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <?php echo $result[0]; ?> </p>
+        </td>
+        <td>
+        <p class="font1" style="font-size: 20px;">
+        <img src = "images/star.png" width = "15px"> 
+        <?php echo round($result[1],2); ?> </p>
+        </td>
+        </tr>
+       <?php $i = $i+1;  }  ?>
+        </table>
     </div>
 
 

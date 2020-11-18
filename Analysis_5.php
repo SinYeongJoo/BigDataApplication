@@ -1,11 +1,6 @@
 <?php
-//$keyword = $_POST['keyword'];
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
 $mysql_port=3306;
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -100,20 +95,52 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
             top:20px;
             right:90px;
         }
-        
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
+        }
+        .analysis_intro_div{
+          position: absolute;
+          top:100px;
+          left: 8%;
+          width: 80%;
+        }
     </style>
   </head>
-  <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+  <body> 
+  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <?php
+ 
+    session_start();
+    if(isset($_SESSION['user_id'])){
+        $link = 'MyPage.php';
+    }else{
+        $link = 'Login.php';
+    }
+    ?>
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='<?php echo $link ?>'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
-    <hr style="width: 100%; color: gray; margin-top: 70px;"/>
+    <?php
+    if(isset($_SESSION['user_id'])){?>
+    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <?php } ?>
+     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
+     <div class = "analysis_intro_div">
+      <p style="font-size: 18px; font-weight: bolder;">Advanced Analysis 4 </p>
+    </div>
     <div>커피를 분석해 어쩌구 저쩌구</div>
     <nav id="topMenu">
     <ul>
-        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li><a class="menuLink" href="Analysis_1.php">Overview</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Store available</a></li>        
+        <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li class="liNow"><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>

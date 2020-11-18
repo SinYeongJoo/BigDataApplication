@@ -101,9 +101,8 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
             right:90px;
         }
         .analysis_intro_div{
-          border: solid 1px black;
           position: absolute;
-          top:90px;
+          top:100px;
           left: 8%;
           width: 80%;
         }
@@ -127,14 +126,13 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div class = "analysis_intro_div">
-      <!-- 로고 -->
       <p style="font-size: 18px; font-weight: bolder;">Advanced Analysis 4 </p>
     </div>
     <nav id="topMenu">
       <ul>
-        <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
+        <li><a class="menuLink" href="Analysis_1.php">Overview</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Store available</a></li>        
+        <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
