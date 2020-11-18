@@ -10,7 +10,21 @@ mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
 if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
+$cafe_ = "SELECT * FROM cafe;";
+$cafe = mysqli_query($conn, $cafe_);
+$total = mysqli_num_rows($cafe);
+
+$franchise_ = "SELECT * FROM company where franchise = 1;";
+$franchise = mysqli_query($conn, $franchise_);
+$franchiseTotal = mysqli_num_rows($franchise);
+
+$personalTotal = $total - $franchiseTotal;
+$top_ = "SELECT company_name, avg(rating_sum/rating_num) 
+from (cafe natural join company natural join rating) 
+where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
+$top =  mysqli_query($conn, $top_);
 ?>
+
 
 
 <!DOCTYPE html>
@@ -25,7 +39,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 8%;
-        height: 500px;
+        height: 80%;
         width: 12%;
       }
       #topMenu ul {
@@ -61,7 +75,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         color: white;
         display: block;
         width: 100%;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         padding-left: 0px;
         font-family: "Trebuchet MS", Dotum, Arial;
@@ -77,7 +91,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 20%;
-        height: 500px;
+        height: 82%;
         width: 69%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -103,12 +117,75 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
             right:90px;
         }
         .font1{
-          font-size: 20px;
+          font-size: 15px;
           text-align:center; 
           font-weight: bold; 
+          color:gray;
           line-height:1.0em;
+          margin:1.5%;
+        }
+        .countCafe{
+          text-align:center;
+          font-size:40px;
+          color: teal;
+        }
+        .countCafef{
+          text-align:center;
+          font-size:40px;
+          color: teal;
+        }
+        .countCafep{
+          text-align:center;
+          font-size:40px;
+          color: teal;
         }
     </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+var CountAllCafe= <?php echo $total?>;
+var CountFranchiseCafe = <?php echo $franchiseTotal?>;
+var CountPersonalCafe = <?php echo $personalTotal?>;
+
+  $({ val : 0 }).animate({ val :  CountAllCafe }, {
+   duration: 2000,
+  step: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafe").text(num);
+  },
+  complete: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafe").text(num);
+  }
+});
+
+$({ val : 0 }).animate({ val : CountFranchiseCafe }, {
+   duration: 2000,
+  step: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafef").text(num);
+  },
+  complete: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafef").text(num);
+  }
+});
+
+$({ val : 0 }).animate({ val : CountPersonalCafe }, {
+   duration: 2000,
+  step: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafep").text(num);
+  },
+  complete: function() {
+    var num = numberWithCommas(Math.floor(this.val));
+    $(".countCafep").text(num);
+  }
+});
+
+function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
+
+</script>
+
   </head>
   <body>
     <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
@@ -121,37 +198,60 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <ul>
         <li class="liNow"><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
+        <li><a class="menuLink" href="Analysis_3.php">Store available</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
+    <div class="analysis_div">   
+    <p class="font1" style="background: teal; font-size:30px; color:white; "> Number of cafes in Seoul</p>
+    <table style="text-align:center;">
 
-    <?php
-      $cafe_ = "SELECT * FROM cafe;";
-      $cafe = mysqli_query($conn, $cafe_);
-      $total = mysqli_num_rows($cafe);
+    
+    <tr>
+    <td>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td> 
+    <p class="countCafe"></p>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td> 
+    <p class="countCafef"></p>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td> 
+    <p class="countCafep"></p>
+    </td>
+    </tr>
+    <tr>
+    <td></td>
+    <td>
+    <p class="font1" style="display:inline"> Cafes in Seoul &nbsp&nbsp</p> 
+    </td>
+    <td></td>
+    <td>
+    <p class="font1" style="display:inline"> Franchise Cafes in Seoul &nbsp&nbsp</p> 
+    </td>
+    <td></td>
+    <td>
+    <p class="font1" style="display:inline"> Private Cafes in Seoul &nbsp&nbsp</p> 
+    </td>
+    </tr>
+    </table>
 
-      $franchise_ = "SELECT * FROM company where franchise = 1;";
-      $franchise = mysqli_query($conn, $franchise_);
-      $franchiseTotal = mysqli_num_rows($franchise);
-      
-      $personalTotal = $total - $franchiseTotal;
-      $top_ = "SELECT company_name, avg(rating_sum/rating_num) 
-      from (cafe natural join company natural join rating) 
-      where franchise = 1 group by company_name order by avg(rating_sum/rating_num) desc limit 5;"; 
-      $top =  mysqli_query($conn, $top_);
-    ?>
-
-    <div class="analysis_div"> 
-    <p class="font1"> 서울시 전체 카페 수 <?php echo $total?>  </p>
-    <p class="font1"> 서울시 프랜차이즈 카페 수 <?php echo $franchiseTotal?></p>  
-    <p class="font1"> 서울시 개인 카페 수 <?php echo $personalTotal?></p>
-
-    <p class="font1"> 서울시 프랜차이즈 카페 인기 짱! TOP 5 </p>
-    <?php  while($result = mysqli_fetch_row($top)){
-        echo $result[0],"  ",round($result[1],2),"<br>\n";}
-        ?>
+  <p class="font1" style="background: teal; font-size:30px; color:white;">Popular Seoul Franchise Café! TOP 5</p>
+    <br>
+    <?php  
+    $i = 1;
+    while($result = mysqli_fetch_row($top)){?>
+        <p class="font1">
+        <?php 
+        echo $i,"위&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$result[0],"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",round($result[1],2);
+        $i = $i+1;
+      }
+        ?></p>
     
     </div>
 

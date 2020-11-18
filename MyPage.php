@@ -1,4 +1,10 @@
-<!-- <?php session_start();?> -->
+<?php session_start();
+$id = $_SESSION['user_id'];
+$name = $_SESSION['user_name'];
+$email = $_SESSION['user_email']; 
+$password = $_SESSION['user_pw'];
+$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+?>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -8,11 +14,9 @@
       .mypage_box {
         position: absolute;
         background-color: white;
-        left: 50%;
-        margin-top: 100px;
-        margin-left: -250px;
-        width: 500px;
-        border: solid 1px black;
+        margin: 8%;
+        margin-left: 20%;
+        width: 60%;
       }
       .logo_button {
             width: 110px;
@@ -32,88 +36,93 @@
             top:20px;
             right:90px;
         }
+        .table{
+          text-align: center;
+          width:100%;
+        }
     </style>
   </head>
-
   <body>
     <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Mypage.php'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <div class="mypage_box">
-      <p
-        style="
-          font-size: 21px;
-          font-weight: bolder;
-          line-height: 3.3em;
+      <p style="
+          font-size: 19px;
+          line-height: 2.7em;
           text-align: center;
-        "
-      >
-        My Page
-      </p>
+          color : white;
+          background : teal">  PROFILE</p>
+      
       <div>
-        <div style="display: flex">
-          <p style="font-size: 18px; float: left">Profile</p>
-          <input
-            type="button"
-            value="Modify"
-            style="float: right; height: 30px; margin-top: 15px"
-          />
-        </div>
-        <hr style="width: 494px; color: black; margin-top: -10px" />
-        <p style="font-size: 17px; font-weight: bold; line-height: 2em">
-          E-mail
-          <!-- <?php echo $_SESSION['email'];?> -->
-        </p>
-        <p style="font-size: 17px; font-weight: bold; line-height: 2em">
-          password
-          <!-- <?php echo $_SESSION['password'];?> -->
-        </p>
+        <table class="table" style="margin-bottom:5%;">
+        <tr>
+        <td style="border-bottom:1px solid;"><p style="font-size: 17px; line-height: 2em; color:teal">  Name </p></td>
+        <td style="border-left:1px solid; border-bottom:1px solid"> <?php echo $name ?></td>
+        </tr>
+
+        <tr>
+        <td style="border-bottom:1px solid;"><p style="font-size: 17px; line-height: 2em">  E-mail </p></td>
+        <td style="border-left:1px solid; border-bottom:1px solid"> <p style="color:teal"><?php echo $email ?></p></td>
+        </tr>
+        
+        <tr>
+        <td><p style="font-size: 17px; line-height: 2em; color:teal">  Password </p></td>
+        <td style="border-left:1px solid;">
+        <input type=password style="border:0; text-align:center;" value=<?php echo $password ?>/>
+        </td>
+        </tr>
+        </table>
       </div>
-      <div>
-        <div style="display: flex">
-          <p style="font-size: 18px; float: left">Your cafe</p>
-          <input
-            type="button"
-            value="Add"
-            style="float: right; height: 30px; margin-top: 15px"
-          />
-        </div>
-        <hr style="width: 494px; color: black; margin-top: -10px" />
-        <div>카페 들어갈 자리~ 여기에서 각각 수정하기, 삭제하기</div>
-      </div>   
-        <!-- <?php  ?> -->
-        <!-- p 뒤에 괄호 넣어야함 -->
 
-    <!-- 회원탈퇴 -->
-    <form method = "POST" action = "Mypage.php">
-    <input type = "submit" name = "withdrawal"  value="회원 탈퇴"/>
-    </form>
+      <p style="
+          font-size: 19px;
+          line-height: 2.7em;
+          text-align: center;
+          color : white;
+          background : teal">  Your CAFE</p>
 
-    <?php 
-function withdrawal() { 
- $email = $_SESSION['email'];
+      <table class="table" style="margin-bottom:5%;">
+      <tr>
+      <td style="background: lightgray;">CAFE NAME</td>
+      <td style="background: lightgray;">CAFE ADDRESS</td>
+      </tr>
+      <?php
+      $cafe_ = "SELECT cafe_name, cafe_address FROM cafe natural join member WHERE user_id = '$id'";
+      $cafe = mysqli_query($conn, $cafe_);
+      while($result = mysqli_fetch_assoc($cafe)){       
+        echo "<tr><td>",$result['cafe_name'],"</td>"; 
+        ?> 
+        <td style="border-left:1px solid;">
+        <?php echo $result['cafe_address'],"</td></tr>\n\n";
+      } 
+      ?>
+</table>
+    
+<form method = "POST" action = "Mypage.php">
+<input type ="submit" name = "Withdrawal"  value="Withdrawal" 
+style="border:0; float: right; height: 30px; margin-top: 0.3%; background:gray; color:white;"/> 
+</form>
+
+<button onclick="location.href = 'ModifyPW.php'" style="border:0; margin-right: 2%; background:gray;color:white;
+ float: right; height: 30px; margin-top: 0.3%">Modify your Password</button>
+
+<button onclick="location.href='Logout.php'" style="border:0; margin-right: 2%; background:gray;color:white;
+float: right; height: 30px; margin-top: 0.3%">Log out</button>
+
+<?php function withdrawal() { 
+ $id = $_SESSION['user_id']; 
  $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
- $member_out = "DELETE from member where user_email = '$email';";
-//  SET @ CNT = 0;
-//  UPDATE member SET member.user_id = @CNT:= @CNT+1; 
-mysqli_query($conn, $member_out);
-}    
-if(array_key_exists('withdrawal',$_POST)) withdrawal();
+ $member_out = "DELETE FROM member WHERE user_id = '$id';"; 
+ mysqli_query($conn, $member_out);
+ $rearrange = "UPDATE member SET member.user_id = '1';"; 
+ mysqli_query($conn, $rearrange);
+ session_destroy();
+echo "<script> alert('회원탈퇴가 완료되었습니다.'); location.href='Main.php';</script>";
+}
+if(array_key_exists('Withdrawal',$_POST)) withdrawal();
 ?>
 
- <script>
-//alert("회원탈퇴가 완료되었습니다.");
-//location.href='Main.php'; 
-</script>
-
-
-<button style="
-      color: #ff3300;
-      font-size: 18px;
-      background-color: white;
-      border: 0px;"
-  onclick="location.href='Logout.php'">로그아웃</button>
-      </div>
-    </div>
+</div>
   </body>
 </html>

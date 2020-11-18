@@ -19,7 +19,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 8%;
-        height: 500px;
+        height: 80%;
         width: 12%;
       }
       #topMenu ul {
@@ -55,7 +55,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         color: white;
         display: block;
         width: 100%;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         padding-left: 0px;
         font-family: "Trebuchet MS", Dotum, Arial;
@@ -71,7 +71,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 20%;
-        height: 500px;
+        height:82%;
         width: 69%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -108,7 +108,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <ul>
         <li><a class="menuLink" href="Analysis_1.php">Franchise</a></li>
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
-        <li class="liNow"><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
+        <li class="liNow"><a class="menuLink" href="Analysis_3.php">Store available</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
         <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
@@ -165,6 +165,10 @@ $guArray = array("강남구","강동구","강북구","강서구","관악구","�
         "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
         "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
         "은평구","종로구","중구","중랑구");
+$guEngArray = array("Gangnam-gu","Gangdong-gu","Gangbuk-gu","Gangseo-gu","Gwanak-gu","Gwangjin-gu","Guro-gu",
+        "Geumcheon-gu","Nowon-gu","Dobong-gu","Dongdaemun-gu","Dongjak-gu","Mapo-gu","Seodaemun-gu",
+        "Seocho-gu","Seongdong-gu","Seongbuk-gu","Songpa-gu","Yangcheon-gu","Yeongdeungpo-gu","Yongsan-gu",
+        "Eunpyeong-gu","Jongno-gu","Jung-gu","Jungnang-gu");
  $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
  $cafe_ = "SELECT cafe_name,cafe_address FROM cafe natural join area natural join gu 
  where takeout = 0 and gu_name = '$guArray[$id]'";
