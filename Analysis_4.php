@@ -75,7 +75,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 20%;
-        height: 82%;
+        height: 500px;
         width: 69%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -101,9 +101,8 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
             right:90px;
         }
         .analysis_intro_div{
-          border: solid 1px black;
           position: absolute;
-          top:90px;
+          top:100px;
           left: 8%;
           width: 80%;
         }
@@ -119,16 +118,39 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
           background:teal;
           color: white;
         }
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
+        }
     </style>
   </head>
   <body>
     <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+    <?php
+    session_start();
+    if(isset($_SESSION['user_id'])){
+        $link = 'MyPage.php';
+    }else{
+        $link = 'Login.php';
+    }
+    ?>
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='<?php echo $link ?>'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
+    <?php
+    if(isset($_SESSION['user_id'])){?>
+    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <?php } ?>
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div class = "analysis_intro_div">
       <!-- 로고 -->
-      <p style="font-size: 18px; font-weight: bolder;">Advanced Analysis 4 </p>
+      <p style="font-size: 23px; font-weight: bolder;">Americano Index: Average price of americano by district</p>
     </div>
     <nav id="topMenu">
       <ul>
@@ -140,29 +162,43 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       </ul>
     </nav>
     <div class="analysis_div">
-    <?php
-        $guArray = array("강남구","강동구","강북구","강서구","관악구","광진구","구로구",
-        "금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구",
-        "서초구","성동구","성북구","송파구","양천구","영등포구","용산구",
-        "은평구","종로구","중구","중랑구");
-        $guEngArray = array("Gangnam-gu","Gangdong-gu","Gangbuk-gu","Gangseo-gu","Gwanak-gu","Gwangjin-gu","Guro-gu",
-        "Geumcheon-gu","Nowon-gu","Dobong-gu","Dongdaemun-gu","Dongjak-gu","Mapo-gu","Seodaemun-gu",
-        "Seocho-gu","Seongdong-gu","Seongbuk-gu","Songpa-gu","Yangcheon-gu","Yeongdeungpo-gu","Yongsan-gu",
-        "Eunpyeong-gu","Jongno-gu","Jung-gu","Jungnang-gu");
-
-    for ($i = 0; $i < 25; $i++){
-    $americano_ = "SELECT avg(price) FROM gu natural join americano 
-    where gu.cafe_id = americano.cafe_id and gu_name = '$guArray[$i]';";
+    <?php  
+    $americano_ = "SELECT avg(americano.price) AS avg_price, gu.gu_name FROM gu, americano 
+    WHERE americano.cafe_id = gu.cafe_id GROUP BY gu.gu_name ORDER BY avg_price DESC";
     $americano = mysqli_query($conn, $americano_);
-    $price = mysqli_fetch_row($americano); ?>
-    <button class="guBox">
-    <?php
-    echo $guEngArray[$i],"<br>\n", ceil($price[0])," won<br>\n";
-    ?>    
-    </button>
-     <?php
-    }
     ?>
+    <div style = "float:left; padding-left:50px;padding-right:50px; width:150px;">
+    <p style = "font-weight:bolder; font-size:1.5em; text-align:center;">1</p>
+    <img src = "images/americano.png" width = "200px" style = "margin-top: -30px; margin-left:-25px; margin-bottom: -20px;"/><br/>
+    <?php $gu_price = mysqli_fetch_assoc($americano);?>
+    <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
+    <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
+    </div>
+    <div style = "float:left; bolder:solid 1px; padding-left:50px;padding-right:50px">
+    <p style = "font-weight:bolder; font-size:1.5em; text-align:center;">2</p>
+    <img src = "images/americano.png" width = "150px" style = "margin-top: 5px; margin-left:-12px; margin-bottom: 17px; width:150px;"/><br/>
+    <?php $gu_price = mysqli_fetch_assoc($americano);?>
+    <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
+    <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
+    </div>
+    <div style = "float:left; width:100px;">
+    <p style = "font-weight:bolder; font-size:1.5em; text-align:center;">3</p>
+    <img src = "images/americano.png" width = "100px" style = "margin-top: 45px; margin-left:-2px; margin-bottom: 29px; width:110px;"/><br/>
+    <?php $gu_price = mysqli_fetch_assoc($americano);?>
+    <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
+    <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
+    </div>
+    <div style = "margin-top:8px; border-left: solid 3px #CCCCCC; width:390px; float:right; padding-left:10px;">
+    <p style = "text-align: center; font-size:1.2em; font-weight:bolder; margin-right:10px;">Others</p>
+    <?php
+    $i = 4;
+    while($gu_price = mysqli_fetch_assoc($americano)){ ?>
+    <div style = "float:left; margin-top:-16px; margin-left:10px;">
+    <p style = "color: teal; float:left; width:30px; font-weight:bolder;"><?php echo $i ?></p>
+    <p style = "float:left; width:70px; font-weight:bold;"><?php echo $gu_price['gu_name'] ?></p>
+    <p style = "float:left; width:70px; color: #555555"><?php echo round($gu_price['avg_price'], 2)?></p>
+    </div>
+    <?php $i++; }?>    
     </div>
   </body>
 </html>
