@@ -36,29 +36,44 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
             top:20px;
             right:150px;
         }
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
+        }
         .cafe_list_div{
-          border: solid 1px black;
           position: static;
           width: 50%;
           margin-top: 120px;
           margin-left:7%;
         }
         .cafe_detail_div{
-          border: solid 1px #dddddd;
           position: fixed;
-          top:122px;
+          top:110px;
           width: 36%;
-          right:6%;
-          height: 80%;
-          border-left: solid 2px #dddddd;
+          right:5%;
+          height: 83%;
+          border-left: solid 4px #dddddd;
+          padding-left: 2.3%;
         }
         #each_cafe_div{
-          border: solid 1px blue;
+          border-left: solid 0px;
+          border-right: solid 2px teal;
+          border-top: solid 0px;
+          border-bottom: solid 2px teal;
+          border-radius: 0px 10px 10px 10px;
+          background-color: #F6F6F6;
           float: left;
-          margin-right: 10px;
+          margin-right: 30px;
           margin-bottom: 10px;
-          height:270px;
-          width: 171px;
+          height:120px;
+          width: 340px;      
         }
         .cafe_name_p{
           margin-top:15px;
@@ -67,23 +82,19 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
           padding-left: 15px;
         }
         .cafe_photo_div{
-          border-top: solid 1px #CCCCCC;
-          border-bottom: solid 1px #CCCCCC;
           margin-top: -15px;
           height: 290px;
         }
         .cafe_address_1_div{
-          margin-top:5px;
-          font-size:1em;
+          font-size:1.0em;
           float:left;
-          margin-left:20px;
-
+          width: 76%;
         }
         .cafe_address_2_div{
-          margin-top:5px;
           font-size:1em;
           float:right;
-          margin-right:20px;
+          border-left: solid 2px #DDDDDD;
+          padding-left: 5px;
         }
     </style>
   </head>
@@ -92,10 +103,23 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <div style = "position: fixed; background-color: white; height: 70px; top:0px; width: 100%; left: 0%;"></div>
     <hr style="position: fixed; width: 100%; color: gray; top: 62px;"/>
     <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
+    <?php
+    session_start();
+    if(isset($_SESSION['user_id'])){
+        $link = 'MyPage.php';
+    }else{
+        $link = 'Login.php';
+    }
+    ?>
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='<?php echo $link ?>'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
+    <?php
+    if(isset($_SESSION['user_id'])){?>
+    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <?php } ?>
+
     <div class = "cafe_list_div">  
-      <p>'<?php echo $cafe_search ?>'에 대한 검색 결과</p>
+      <p style = "font-weight:bolder; font-size:1.2em;">'<?php echo $cafe_search ?>'에 대한 검색 결과</p>
       <?php
         $cafesearch = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_name like '%$cafe_search%'";
         $cafesearchresult = mysqli_query($conn, $cafesearch);
@@ -103,27 +127,22 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
           $each_rating = $cafesearchdata['rating_sum'] / $cafesearchdata['rating_num'];
       ?>
       <form method = "GET" action = "Search.php">
-        <select name = "cafe_search" style = "width: 0px; height: 0px">
-          <option value = "<?php echo $cafe_search?>" selected></option>
+        <select name = "cafe_search" style = "display:none;">
+        <option value = "<?php echo $cafe_search?>" selected></option>
         </select>
-
         <button type = "submit" name = "cafe_id_detail" value = "<?php echo $cafesearchdata['cafe_id']?>" id = "each_cafe_div">
-          <?php echo $cafesearchdata['cafe_name']?>
+          <p style = "font-weight:bolder; font-size:1.1em; margin-bottom:-3px; margin-top:5px;"><?php echo $cafesearchdata['cafe_name']?><p>
+          <img src = "images/location.png" width = "19px" style="float:left;">
+          <p style = "text-align:left; float:left; width:290px; margin-left:5px; margin-top: 0px;"><?php echo $cafesearchdata['cafe_address'] ?></p>
           <br/>
-          <?php echo $cafesearchdata['cafe_address'] ?>
-          <br/>
-          <?php echo round($each_rating, 2)?>
+          <img src = "images/star.png" width = "20px" style="float:left; margin-top:-3px;">
+          <p style = " text-align:left; float:left; margin-left:5px; margin-top:1px;"><?php echo round($each_rating, 2)?></p>
           <br/>
         </button>
       </form>
       <?php }?>
     </div>
-
-
-
-
-
-
+  
     <?php
     if($cafe_id_detail == -1){
       ?>
@@ -142,7 +161,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
       <?php echo $cafedetaildata['cafe_name'] ?>
       </p>
       <div class = "cafe_photo_div">
-      <img src = "<?php echo $cafedetaildata['src']?>", height = "290px", width = "100%"> 
+      <img style = "border:solid 2px #DDDDDD; border-radius:5px;" src = "<?php echo $cafedetaildata['src']?>", height = "270px", width = "100%"> 
       </div>
       <div class = "cafe_address_1_div">
         <img src = "images/location.png" width = "21px">
@@ -152,34 +171,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <img src = "images/star.png" style = "width:21px">
         <?php echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2) ?>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
       <br><br>
-      당신의 별점을 입력해주세요
       <form method="post" action="Search_back.php">
       <select name = "cafe_id" style = "width: 0px; height: 0px">
         <option value = "<?php echo $cafe_id_detail?>" selected></option>
@@ -192,34 +184,43 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
+      <div class="switch">
+        <input name="switch" id="one" type="radio" checked/>
+        <label for="one" class="switch__label">One</label>
+        <input name="switch" id="two" type="radio" />
+        <label for="two" class="switch__label">Two</label>
+        <input name="switch" id="three" type="radio" />
+        <label for="three" class="switch__label" >Three</label>
+        <div class="switch__indicator" ></div>
+      </div>
       <input type="submit" name = "review_submit" value="입력">
       </form>
 
-      <br/><br/>
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <?php echo $cafedetaildata['rating_five'] ?>
       <br/>
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <?php echo $cafedetaildata['rating_four'] ?>
-      <br/>
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <?php echo $cafedetaildata['rating_three'] ?>
-      <br/>
-      <img src = "images/star.png" width = "21px">
-      <img src = "images/star.png" width = "21px">
-      <?php echo $cafedetaildata['rating_two'] ?>
-      <br/>
-      <img src = "images/star.png" width = "21px">
-      <?php echo $cafedetaildata['rating_one'] ?>
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        &nbsp<?php echo $cafedetaildata['rating_five'] ?>
+        <br/>
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        &nbsp<?php echo $cafedetaildata['rating_four'] ?>
+        <br/>
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        &nbsp<?php echo $cafedetaildata['rating_three'] ?>
+        <br/>
+        <img src = "images/star.png" width = "20px">
+        <img src = "images/star.png" width = "20px">
+        &nbsp<?php echo $cafedetaildata['rating_two'] ?>
+        <br/>
+        <img src = "images/star.png" width = "20px">
+        &nbsp<?php echo $cafedetaildata['rating_one'] ?>
     </div>
     <?php }
     mysqli_close($conn);

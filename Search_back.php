@@ -12,7 +12,7 @@ mysqli_query($conn, "set session character_set_client=utf8;");
 
 $cafe_id = $_POST['cafe_id'];
 $query="select * from rating where cafe_id = '$cafe_id'";
-$result=mysqli_query($mysqli,$query);
+$result=mysqli_query($conn,$query);
 $row=mysqli_fetch_array($result);
 $rating_num = $row['rating_num'];
 $rating_sum = $row['rating_sum'];
@@ -48,9 +48,10 @@ $query2 = "UPDATE rating SET cafe_id = '$cafe_id', rating_num = '$rating_num',
 rating_sum = '$rating_sum', rating_one = '$rating_one', rating_two = '$rating_two', 
 rating_three = '$rating_three', rating_four = '$rating_four', rating_five = '$rating_five' 
 WHERE cafe_id = '$cafe_id';";
+
 mysqli_query($conn, $query2);
 $conn->close();
 
-header('location:'.$prevPage);   // 원래 페이지로 이동시킴
+header('location:'.$prevPage);  
 
 ?>
