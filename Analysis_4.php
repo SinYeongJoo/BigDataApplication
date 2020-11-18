@@ -157,7 +157,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav>
     <div class="analysis_div">
@@ -173,16 +173,16 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
     <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
     </div>
-    <div style = "float:left; bolder:solid 1px; padding-left:50px;padding-right:50px">
+    <div style = "float:left; bolder:solid 1px; padding-left:40px; padding-right:40px;">
     <p style = "font-weight:bolder; font-size:1.5em; text-align:center;">2</p>
-    <img src = "images/americano.png" width = "150px" style = "margin-top: 5px; margin-left:-12px; margin-bottom: 17px; width:150px;"/><br/>
+    <img src = "images/americano.png" width = "150px" style = "margin-top: 5px; margin-left:-10px; margin-bottom: 18px; width:150px;"/><br/>
     <?php $gu_price = mysqli_fetch_assoc($americano);?>
     <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
     <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
     </div>
     <div style = "float:left; width:100px;">
     <p style = "font-weight:bolder; font-size:1.5em; text-align:center;">3</p>
-    <img src = "images/americano.png" width = "100px" style = "margin-top: 45px; margin-left:-2px; margin-bottom: 29px; width:110px;"/><br/>
+    <img src = "images/americano.png" width = "100px" style = "margin-top: 45px; margin-left:-2px; margin-bottom: 37px; width:110px;"/><br/>
     <?php $gu_price = mysqli_fetch_assoc($americano);?>
     <p style = "text-align:center; font-size:1.4em; font-weight:bolder"><?php echo $gu_price['gu_name'] ?> </p>
     <p style = "text-align:center; font-size:1.2em; font-weight:bolder"> <?php echo round($gu_price['avg_price'], 2) ?>원 <p>
