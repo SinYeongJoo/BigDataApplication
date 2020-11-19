@@ -9,8 +9,8 @@ mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
 if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
 
-//카페 개수 + 1 == 새로운 카페 등록 카페 id
-$cafe_ = "SELECT * FROM cafe;";
+//새로운 카페 등록 카페 id
+$cafe_ = "SELECT max(cafe_id) from cafe;";
 $cafe = mysqli_query($conn, $cafe_);
 $total = mysqli_num_rows($cafe);
 $n = $total + 1;
@@ -103,9 +103,17 @@ thur_open,thur_close,fri_open,fri_close,sat_open,sat_close,sun_open,sun_close)
 values('$n','$mon_o','$mon_c','$tue_o','$tue_c','$wed_o','$wed_c'
 ,'$thur_o','$thur_c','$fri_o','$fri_c','$sat_o','$sat_c','$sun_o','$sun_c');";
 mysqli_query($conn, $time_query);
+
+$img_query = "INSERT into img(cafe_id,src) 
+values ('$n','https://mysoretrendz.com/wp-content/uploads/2020/03/No-Image-Icon.png');";
+mysqli_query($conn, $img_query);
+
+$rating_query = "INSERT into rating(cafe_id,rating_num,rating_sum,rating_one,rating_two,rating_three,
+rating_four,rating_five) values ('$n',0,0,0,0,0,0,0);"; 
+mysqli_query($conn, $rating_query);
 ?>              
 <script>
-    alert("카페가 등록되었습니다.");
+    alert("Your cafe is posted");
     location.href='Main.php'; 
 </script>
 

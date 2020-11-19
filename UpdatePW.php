@@ -10,5 +10,5 @@ $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 $sql = "UPDATE member set user_pw='$newPassword' where user_id = '$user_id';";
 mysqli_query($conn, $sql); 
 session_destroy();
-echo "<script>alert('비밀번호를 변경했습니다.'); location.href='Main.php';</script>";
+echo "<script>alert('Your password is modified'); location.href='Main.php';</script>";
 ?>

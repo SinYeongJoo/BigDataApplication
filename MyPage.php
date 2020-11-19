@@ -113,9 +113,11 @@ $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
       ?>
 </table>
     
-<form method = "POST" action = "Mypage.php">
+<form method = "POST" action = "MyPage.php">
 <input type ="submit" name = "Withdrawal"  value="Withdrawal" 
 style="border:0; float: right; height: 30px; margin-top: 0.3%; background:gray; color:white;"/> 
+<input type ="submit" name = "DropCafe"  value="DropCafe" 
+style="border:0; float: right; height: 30px; margin-top: 0.3%; margin-right: 2%; background:gray; color:white;"/> 
 </form>
 
 <button onclick="location.href = 'ModifyPW.php'" style="border:0; margin-right: 2%; background:gray;color:white;
@@ -124,17 +126,40 @@ style="border:0; float: right; height: 30px; margin-top: 0.3%; background:gray; 
 <button onclick="location.href='Logout.php'" style="border:0; margin-right: 2%; background:gray;color:white;
 float: right; height: 30px; margin-top: 0.3%">Log out</button>
 
-<?php function withdrawal() { 
+<?php 
+
+function withdrawal() { 
  $id = $_SESSION['user_id']; 
  $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
  $member_out = "DELETE FROM member WHERE user_id = '$id';"; 
  mysqli_query($conn, $member_out);
-// $rearrange = "UPDATE member SET member.user_id = '1';"; 
-// mysqli_query($conn, $rearrange);
+
+$rearrange = "UPDATE member SET member.user_id = '1';"; 
+mysqli_query($conn, $rearrange);
+$rearrange1 = "UPDATE cafe SET cafe.cafe_id = '1';"; 
+mysqli_query($conn, $rearrange1);
+$rearrange2 = "UPDATE gu SET gu.cafe_gu = '1';"; 
+mysqli_query($conn, $rearrange2);
  session_destroy();
 echo "<script> alert('회원탈퇴가 완료되었습니다.'); location.href='Main.php';</script>";
 }
+
+  function drop() { 
+  $id = $_SESSION['user_id']; 
+  $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
+  $cafe_out = "DELETE FROM cafe WHERE user_id = '$id';"; 
+  mysqli_query($conn, $cafe_out);
+
+  $rearrange3 = "UPDATE cafe SET cafe.cafe_id = '1';"; 
+  mysqli_query($conn, $rearrange3);
+  $rearrange4 = "UPDATE gu SET gu.cafe_gu = '1';"; 
+  mysqli_query($conn, $rearrange4);
+  echo "<script> location.href='Main.php';</script>";
+ }
+
 if(array_key_exists('Withdrawal',$_POST)) withdrawal();
+else if (array_key_exists('DropCafe',$_POST)) drop();
+
 ?>
 
 </div>
