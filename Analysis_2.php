@@ -71,7 +71,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         position: absolute;
         top: 25%;
         left: 20%;
-        height: 82%;
+        height: 500px;
         width: 69%;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -156,7 +156,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <li class="liNow"><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
       </ul>
     </nav> 
     <div class="analysis_div">
@@ -171,13 +171,22 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     "Eunpyeong-gu","Jongno-gu","Jung-gu","Jungnang-gu");
 
     for ($i = 0; $i < 25; $i++){
-    $guNum_ = "SELECT count(cafe_id) FROM gu where gu_name = '$guArray[$i]';";
+    $guNum_ = "SELECT count(cafe_id), gu_name FROM gu where gu_name = '$guArray[$i]';";
     $guNum = mysqli_query($conn, $guNum_);
-    $total = mysqli_fetch_row($guNum);?>
-
-    <button class="guBox">
-    <?php  echo $total[0],"<br>\n",$guEngArray[$i];?>
-    </button>
+    $total = mysqli_fetch_row($guNum);
+    if($total[0] > 1000){
+      $color = '#034b7f';
+    }elseif($total[0] >700){
+      $color = '#008bb0';
+    }else{
+      $color = '#85bfbf';
+    }
+    ?>
+    <div style = "height: <?php echo $total[0]/6.5?>px; width:35px; border:solid 0px; 
+    margin-left:39px; position:fixed; bottom:115px; background-color: <?php echo $color?>;">
+    <p style = "text-align:center; margin-top:-28px;"><?php echo $total[0]?></p>
+    <p style = "font-size:0.6em; position:absolute; height:20px; width:100%; text-align:center; bottom:-38px; font-weight:bolder;"><?php  echo $total[1];?></p>
+    <div>
     <?php
     }
     ?>
