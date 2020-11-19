@@ -38,9 +38,9 @@ $result_set = mysqli_query($conn, $select_query);
             font-weight: bolder;
         }
         .logo_button {
-            width: 110px;
+            width: 55px;
             position:absolute;
-            top:20px;
+            top:18px;
             left:8%;
         }
         .search_input{
@@ -92,10 +92,10 @@ $result_set = mysqli_query($conn, $select_query);
         }
         .map_wrap{
             position: absolute;
-            height: 630px;
-            width: 680px;
-            right: 6%;
-            top:14%;
+            height: 530px;
+            width: 580px;
+            right: 4%;
+            top:25%;
         }
         #map_image{
             position: absolute;
@@ -141,7 +141,7 @@ $result_set = mysqli_query($conn, $select_query);
     </style>
 </head>
 <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+    <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
     <?php
     session_start();
     if(isset($_SESSION['user_id'])){
@@ -167,9 +167,7 @@ $result_set = mysqli_query($conn, $select_query);
         </form>
 
     <div class = "map_wrap">
-        <form>
-            <input type="image" src="images/seoul_map_all.png" id = "map_image" onclick="location.href='Search.php'">
-        </form>
+        <img src="images/logo_4.png" height = "450px;">
     </div>
     
     <div class = "recco_wrap">
