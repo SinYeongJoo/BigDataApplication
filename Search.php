@@ -223,8 +223,9 @@ starRating();
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
-    <?php } ?>
+    <input class = "add_button" type="button" value = "+ cafe" onclick="location.href='Add.php'"/>
+    <?php } 
+    ?>
 
     <div class = "cafe_list_div">  
       <p style = "font-weight:bolder; font-size:1.2em;">Results for '<?php echo $cafe_search ?>'</p>
