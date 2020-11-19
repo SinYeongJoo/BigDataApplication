@@ -223,8 +223,9 @@ starRating();
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
-    <?php } ?>
+    <input class = "add_button" type="button" value = "+ cafe" onclick="location.href='Add.php'"/>
+    <?php } 
+    ?>
 
     <div class = "cafe_list_div">  
       <p style = "font-weight:bolder; font-size:1.2em;">Results for '<?php echo $cafe_search ?>'</p>
@@ -232,7 +233,11 @@ starRating();
         $cafesearch = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_name like '%$cafe_search%'";
         $cafesearchresult = mysqli_query($conn, $cafesearch);
         while($cafesearchdata = mysqli_fetch_assoc($cafesearchresult)){
-          $each_rating = $cafesearchdata['rating_sum'] / $cafesearchdata['rating_num'];
+          if($cafesearchdata['rating_num'] == 0){ 
+            $each_rating = 0;
+          }else{        
+            $each_rating = $cafesearchdata['rating_sum'] / $cafesearchdata['rating_num'];
+          }
       ?>
       <form method = "GET" action = "Search.php">
         <select name = "cafe_search" style = "display:none;">
@@ -277,7 +282,12 @@ starRating();
       </div>
       <div class = "cafe_address_2_div">
         <img src = "images/star.png" style = "width:21px">
-        <?php echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2) ?>
+        <?php 
+        if($cafedetaildata['rating_num'] != 0){
+          echo round($cafedetaildata['rating_sum'] / $cafedetaildata['rating_num'], 2);
+         }else{
+           echo 0;
+         } ?>
       </div>
       <br><br>      
 
@@ -295,6 +305,12 @@ starRating();
       </span>
       </span>
       <input type="submit" name = "review_submit" value="apply"> 
+      </form>
+      <form method="post" action="Search_reset.php">
+      <select name = "cafe_id" style = "width: 0px; height: 0px">
+        <option value = "<?php echo $cafe_id_detail?>" selected></option>
+      </select>  
+      <input type="submit" name = "review_reset" value="reset"> 
       </form>
 
       <br/>
