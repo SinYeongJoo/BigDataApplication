@@ -1,7 +1,7 @@
 <?php
     header('Content-Type: text/html; charset=utf-8');
     session_start();
-    $mysqli = new mysqli('localhost', 'root', '1234', 'cafe');
+    $mysqli = new mysqli('localhost', 'team09', 'team09', 'team09');
     $mysqli->query('SET NAMES utf8');
     if (mysqli_connect_error()) {
         die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
@@ -20,7 +20,5 @@
         echo("<script>location.href='./MyPage.php';</script>");
     }else{
         echo"<script>alert('Please check your email and password.');history.back();</script>";
-        // echo ("<script>alert('Email or Password isn't correct. 
-        // Please check your email and password.');history.back();</script>");
     }
 ?>

@@ -1,12 +1,8 @@
 <?php
 $cafe_search = $_GET['cafe_search'];
 $cafe_id_detail = !empty($_GET['cafe_id_detail']) ? (int)$_GET['cafe_id_detail'] : -1;
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
 $mysql_port=3306;
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -17,10 +13,10 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
 <html>
   <head>
     <style type="text/css">
-      .logo_button {
-            width: 110px;
-            position: fixed;
-            top:20px;
+     .logo_button {
+            width: 55px;
+            position:absolute;
+            top:18px;
             left:8%;
         }
         .login_button {
@@ -50,7 +46,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         .cafe_list_div{
           position: static;
           width: 50%;
-          margin-top: 120px;
+          margin-top: 5%;
           margin-left:7%;
         }
         .cafe_detail_div{
@@ -214,7 +210,7 @@ starRating();
   <body>
     <div style = "position: fixed; background-color: white; height: 70px; top:0px; width: 100%; left: 0%;"></div>
     <hr style="position: fixed; width: 100%; color: gray; top: 62px;"/>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+    <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
     <?php
     session_start();
     if(isset($_SESSION['user_id'])){
@@ -231,7 +227,7 @@ starRating();
     <?php } ?>
 
     <div class = "cafe_list_div">  
-      <p style = "font-weight:bolder; font-size:1.2em;">'<?php echo $cafe_search ?>'에 대한 검색 결과</p>
+      <p style = "font-weight:bolder; font-size:1.2em;">Results for '<?php echo $cafe_search ?>'</p>
       <?php
         $cafesearch = "SELECT * FROM cafe, rating where cafe.cafe_id = rating.cafe_id and cafe.cafe_name like '%$cafe_search%'";
         $cafesearchresult = mysqli_query($conn, $cafesearch);
@@ -259,7 +255,7 @@ starRating();
     if($cafe_id_detail == -1){
       ?>
       <div class = "cafe_detail_div">
-        <p class = "cafe_name_p">카페를 선택해주세요.</P>
+        <p class = "cafe_name_p">Please select a cafe.</P>
       </div>
       <?php
     }
@@ -298,7 +294,7 @@ starRating();
     <input type="radio" name='star_value' id="p5" value="5"/><label for="p5">5</label>
       </span>
       </span>
-      <input type="submit" name = "review_submit" value="입력"> 
+      <input type="submit" name = "review_submit" value="apply"> 
       </form>
 
       <br/>

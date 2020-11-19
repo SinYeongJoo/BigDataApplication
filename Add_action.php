@@ -3,7 +3,7 @@ $user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['user_name'];
 $user_email = $_SESSION['user_email']; 
 $mysql_port=3306;
-$conn = mysqli_connect("localhost", "root", "1234", "cafe");
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -15,13 +15,11 @@ $cafe = mysqli_query($conn, $cafe_);
 $total = mysqli_num_rows($cafe);
 $n = $total + 1;
 
-
 $maxCompany_ = "SELECT max(company_id) from company;";
 $maxCompany = mysqli_query($conn,$maxCompany_);
 while ($maxCompanynum = mysqli_fetch_row($maxCompany)){
     $maxCompany_ = $maxCompanynum[0];
 }
-
 
 $franchise = $_GET['franchise'];
 //franchise가 맞는가? cafe_id, franchise, company_name, company_id
@@ -61,7 +59,6 @@ if($franchiseDB == 1){
 $guDB = $_GET['gu'];
 $address = $_GET['address2'];         //상세 정보 cafe_address
 $full_address = "서울특별시"." ".$guDB." ".$address;
-
 
 //아메리카노 지수 입력 americano table
 $americano = $_GET['americano'];             //americano
@@ -107,7 +104,6 @@ values('$n','$mon_o','$mon_c','$tue_o','$tue_c','$wed_o','$wed_c'
 ,'$thur_o','$thur_c','$fri_o','$fri_c','$sat_o','$sat_c','$sun_o','$sun_c');";
 mysqli_query($conn, $time_query);
 ?>              
-
 <script>
     alert("카페가 등록되었습니다.");
     location.href='Main.php'; 

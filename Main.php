@@ -1,15 +1,9 @@
 <?php
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
 $mysql_port=3306;
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
-
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
-
 $select_query = "SELECT * FROM cafe";
 $result_set = mysqli_query($conn, $select_query);
 ?>
@@ -19,29 +13,12 @@ $result_set = mysqli_query($conn, $select_query);
 <head>
 <meta charset="UTF-8" />
     <style>
-        /* .wrap_div{
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width:100%;
-            min-height: 100%;
-            background-image: url("images/background1.png");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;      
-        } */
         .intro_div{
             position:absolute;
             top:20%;
             left:12%;
             font-size: 5ch;
             font-weight: bolder;
-        }
-        .logo_button {
-            width: 55px;
-            position:absolute;
-            top:18px;
-            left:8%;
         }
         .search_input{
             width: 450px;
@@ -66,11 +43,24 @@ $result_set = mysqli_query($conn, $select_query);
             background-color: teal;
             color: white
         }
+        .logo_button {
+            width: 55px;
+            position:absolute;
+            top:18px;
+            left:8%;
+        }
         .analysis_button {
             width: 40px;
             position:absolute;
             top:20px;
             right:150px;
+        }
+        .login_button {
+            height: 40px;
+            width: 40px;
+            position:absolute;
+            top:20px;
+            right:90px;
         }
         .add_button {
             width: 70px;
@@ -83,13 +73,7 @@ $result_set = mysqli_query($conn, $select_query);
             color: white;
             background-color:teal;
         }
-        .login_button {
-            height: 40px;
-            width: 40px;
-            position:absolute;
-            top:20px;
-            right:90px;
-        }
+        
         .map_wrap{
             position: absolute;
             height: 530px;
@@ -154,12 +138,12 @@ $result_set = mysqli_query($conn, $select_query);
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <input class = "add_button" type="button" value = "+ Cafe" onclick="location.href='Add.php'"/>
     <?php } ?>
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
 
     <div class = "intro_div">
-        어쩌구 저쩌구<br/>우리 최고!
+     <p style="text-align: center;">Find your cafe, Navi Latte</p>
     </div>
         <form method="GET" action="Search.php">
             <input type="text" id="search_data" class = "search_input" name = "cafe_search"/>
@@ -174,7 +158,7 @@ $result_set = mysqli_query($conn, $select_query);
         <?php 
         $rating_ = "SELECT src, cafe_name, rating_sum/rating_num FROM rating, cafe, img where cafe.cafe_id = img.cafe_id and cafe.cafe_id=rating.cafe_id order by rating_sum/rating_num desc;";
         $rating = mysqli_query($conn, $rating_);?>
-        <p style="padding-left:17px; font-size: 1.5em; font-weight: bold;">별점이 가장 높은 카페를 만나보세요!</p>
+        <p style="padding-left:17px; font-size: 1.5em; font-weight: bold;">Meet the cafe with the highest stars!</p>
         <div style = "float:left; width:100%;">
         <?php $i = 2; while($price = mysqli_fetch_row($rating)){ ?>
         <div id = "recco_one_border_div">

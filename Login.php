@@ -11,17 +11,16 @@
     background-color: white;
     border: solid 1px #DDDDDD;
     border-radius: 10px;
-    top:50%;
-    left:50%;
-    margin-left:-220px;
+    top:55%;
+    left:36%;
     margin-top:-180px;
   }
   .logo_button {
-    width: 110px;
-    position:absolute;
-    top:20px;
-    left:8%;
-  }
+            width: 55px;
+            position:absolute;
+            top:18px;
+            left:8%;
+        }
   .analysis_button {
     width: 40px;
     position:absolute;
@@ -66,11 +65,10 @@
   .welcome_div{
     position: absolute;
     text-align: center;
-    height: 100px;
-    width: 360px;
-    top:15%;
-    left:50%;
-    margin-left:-180px;
+    height: 80px;
+    width: 440px;
+    top:17%;
+    left:36%;
     font-size: 1.5em;
     font-weight: bolder;
   }
@@ -78,22 +76,25 @@
 </head>
 
 <body>
-  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
   <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
   <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
   <hr style="width: 100%; color: gray; margin-top: 70px;"/>
   <div class = "welcome_div">
-    <p>~~~에 오신 것을 환영합니다</p>
+    <p>Log in and register your own cafe</p>
   </div>
   <div class="login_box">
     <form method="POST" action="Login_back.php">
         <p id = "email_pw_text">Please write your E-mail</p>
-        <input type="text" class="email_pw_input" id="ex4-email-input" name="email" placeholder="Please write your E-mail"/>
+        <input type="text" class="email_pw_input" id="ex4-email-input" name="email" 
+        placeholder="Please write your E-mail"/>
         <p id = "email_pw_text">Please write your password</p>
-        <input type="password" class="email_pw_input" id="ex4-pw-input" name="password" placeholder="Please write your password"/>
+        <input type="password" class="email_pw_input" id="ex4-pw-input" name="password" 
+        placeholder="Please write your password"/>
         <input type="submit" value="Login" class="login">
         <br><br>
-        <a href = "Join.php" style = "font-size: 18px; padding-left: 120px; color: #777777; text-decoration: none;">아직 회원이 아니신가요?</a>
+        <a href = "Join.php" style = "font-size: 18px; padding-left: 50px; color: #777777; 
+        text-decoration: none;">New to NaviLatte? Create your account</a>
     </form>
   </div>
 </body>

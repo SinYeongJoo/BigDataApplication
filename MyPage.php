@@ -3,7 +3,7 @@ $id = $_SESSION['user_id'];
 $name = $_SESSION['user_name'];
 $email = $_SESSION['user_email']; 
 $password = $_SESSION['user_pw'];
-$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -14,15 +14,16 @@ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
       .mypage_box {
         position: absolute;
         background-color: white;
-        margin: 8%;
+        margin: 2%;
         margin-left: 20%;
         width: 60%;
       }
       .logo_button {
-            width: 110px;
+            width: 55px;
             position:absolute;
-            top:20px;
-      }
+            top:18px;
+            left:8%;
+        }
       .analysis_button {
             width: 40px;
             position:absolute;
@@ -36,6 +37,17 @@ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
             top:20px;
             right:90px;
         }
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
+        }
         .table{
           text-align: center;
           width:100%;
@@ -43,9 +55,11 @@ $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
     </style>
   </head>
   <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
-    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Mypage.php'">
+  <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
+    <input class = "login_button" type="image" src="images/person.png" onclick="location.href='<?php echo $link ?>'">
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
+    <input class = "add_button" type="button" value = "+ Cafe" onclick="location.href='Add.php'"/>
+    <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div class="mypage_box">
       <p style="
           font-size: 19px;
@@ -112,7 +126,7 @@ float: right; height: 30px; margin-top: 0.3%">Log out</button>
 
 <?php function withdrawal() { 
  $id = $_SESSION['user_id']; 
- $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+ $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
  $member_out = "DELETE FROM member WHERE user_id = '$id';"; 
  mysqli_query($conn, $member_out);
 // $rearrange = "UPDATE member SET member.user_id = '1';"; 

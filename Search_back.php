@@ -1,11 +1,7 @@
 <?php
 session_start();
 $prevPage = $_SERVER['HTTP_REFERER'];   // prevPage 변수에 이전 페이지 변수를 저장함
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");

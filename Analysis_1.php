@@ -1,7 +1,7 @@
 <?php
 session_start();
 $mysql_port=3306;
-$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -92,12 +92,12 @@ $top =  mysqli_query($conn, $top_);
         border-left: solid 3px #4e4e4e;
       }
       .logo_button {
-            width: 110px;
+            width: 55px;
             position:absolute;
-            top:20px;
+            top:18px;
             left:8%;
         }
-        .analysis_button {
+      .analysis_button {
             width: 40px;
             position:absolute;
             top:20px;
@@ -109,6 +109,17 @@ $top =  mysqli_query($conn, $top_);
             position:absolute;
             top:20px;
             right:90px;
+        }
+        .add_button {
+            width: 70px;
+            height: 40px;
+            position:fixed;
+            border: solid 1px teal;
+            border-radius: 5px;
+            top:18px;
+            right:220px;
+            color: white;
+            background-color:teal;
         }
         .font1{
           font-size: 15px;
@@ -134,17 +145,6 @@ $top =  mysqli_query($conn, $top_);
           text-align:center;
           font-size:40px;
           color: teal;
-        }
-        .add_button {
-            width: 70px;
-            height: 40px;
-            position:fixed;
-            border: solid 1px teal;
-            border-radius: 5px;
-            top:18px;
-            right:220px;
-            color: white;
-            background-color:teal;
         }
         .analysis_intro_div{
           position: absolute;
@@ -197,10 +197,9 @@ $({ val : 0 }).animate({ val : CountPersonalCafe }, {
 
 function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");}
 </script>
-
   </head>
   <body>
-  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
   <?php
     if(isset($_SESSION['user_id'])){
         $link = 'MyPage.php';
@@ -212,7 +211,7 @@ function numberWithCommas(x) {    return x.toString().replace(/\B(?=(\d{3})+(?!\
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <input class = "add_button" type="button" value = "+ Cafe" onclick="location.href='Add.php'"/>
     <?php } ?>
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div class = "analysis_intro_div">

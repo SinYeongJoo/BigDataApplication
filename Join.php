@@ -4,24 +4,23 @@
 <meta charset="UTF-8">
 <style type="text/css">
 .login_box{  
-  position: absolute;
-  display: flex;
-  height: 470px;
-  width: 440px;
-  background-color: white;
-  border: solid 1px #DDDDDD;
-  border-radius: 10px;
-  top:50%;
-  left:50%;
-  margin-left:-220px;
-  margin-top:-180px;
-}
+    position: absolute;
+    display: flex;
+    height: 470px;
+    width: 440px;
+    background-color: white;
+    border: solid 1px #DDDDDD;
+    border-radius: 10px;
+    top:55%;
+    left:36%;
+    margin-top:-180px;
+  }
 .logo_button {
-  width: 110px;
-  position:absolute;
-  top:20px;
-  left:8%;
-}
+            width: 55px;
+            position:absolute;
+            top:18px;
+            left:8%;
+        }
 .analysis_button {
   width: 40px;
   position:absolute;
@@ -64,25 +63,24 @@
   color: white;
 }
 .welcome_div{
-  position: absolute;
-  text-align: center;
-  height: 100px;
-  width: 360px;
-  top:15%;
-  left:50%;
-  margin-left:-180px;
-  font-size: 1.5em;
-  font-weight: bolder;
-}
+    position: absolute;
+    text-align: center;
+    height: 80px;
+    width: 440px;
+    top:17%;
+    left:36%;
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
 </style>
 
 <body>
-  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
   <input class = "login_button" type="image" src="images/person.png" onclick="location.href='Login.php'">
   <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
   <hr style="width: 100%; color: gray; margin-top: 70px;"/>
   <div class = "welcome_div">
-    <p>~~~에 가입해보세요!</p>
+    <p>Create NaviLatte account</p>
   </div>
   <div class="login_box">
         <form method="POST" action="Join_back.php">
@@ -94,7 +92,8 @@
           <input type="password" class="email_pw_input" id="ex4-pw-input" name="password" placeholder="Please write your password"/>
           <input type="submit" value="Join" class="login">
           <br><br>
-          <a href = "Login.php" style = "font-size: 18px; padding-left: 120px; color: #777777; text-decoration: none;">이미 계정이 있으신가요?</a>  
+          <a href = "Login.php" style = "font-size: 18px; padding-left: 80px; color: #777777; 
+          text-decoration: none;">Already have an account? Sign-In</a>  
       </form>
   </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -1,7 +1,7 @@
 <?php
     header('Content-Type: text/html; charset=utf-8');
     session_start();
-    $mysqli = new mysqli('localhost', 'root', '1234', 'cafe');
+    $mysqli = new mysqli('localhost', 'team09', 'team09', 'team09');
     $mysqli->query('SET NAMES utf8');
     if (mysqli_connect_error()) {
         die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
@@ -16,11 +16,10 @@
         if(!empty($re)){
 	        echo ("<script>alert(\"이메일이 이미 등록되어 있습니다!\");history.back()</script>");
         }else{
-            // $query="insert into member(user_email,user_pw, user_name) values('$email', md5('$password'), '$username')";
             $query="insert into member(user_email,user_pw, user_name) values('$email', '$password', '$username')";
 	        $result=mysqli_query($mysqli, $query);
 	        if($result){
-		        echo("<script>alert(\"회원가입 성공\"); location.href='Login.php'; </script>");
+		        echo("<script>location.href='Login.php'; </script>");
     	    }else{
 		        echo"<script>alert('에러 발생');history.back();</script>";
 	        }

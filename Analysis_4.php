@@ -1,10 +1,6 @@
 <?php
-$mysql_host='localhost';
-$mysql_user='root';
-$mysql_password='1234';
-$mysql_db='cafe';
 $mysql_port=3306;
-$conn = mysqli_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db);
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -82,9 +78,9 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         border-left: solid 3px #4e4e4e;
       }
       .logo_button {
-            width: 110px;
+            width: 55px;
             position:absolute;
-            top:20px;
+            top:18px;
             left:8%;
         }
         .analysis_button {
@@ -132,7 +128,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     </style>
   </head>
   <body>
-    <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+    <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
     <?php
     session_start();
     if(isset($_SESSION['user_id'])){
@@ -145,11 +141,11 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <input class = "add_button" type="button" value = "+ Cafe" onclick="location.href='Add.php'"/>
     <?php } ?>
     <hr style="width: 100%; color: gray; margin-top: 70px;"/>
     <div class = "analysis_intro_div">
-      <p style="font-size: 23px; font-weight: bolder;">Americano Index: Average price of americano by district</p>
+      <p style="font-size: 23px; font-weight: bolder;">Americano Index : Average price of americano by district</p>
     </div>
     <nav id="topMenu">
       <ul>
@@ -157,7 +153,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         <li><a class="menuLink" href="Analysis_2.php">Number of cafes</a></li>
         <li><a class="menuLink" href="Analysis_3.php">Takeout</a></li>        
         <li class="liNow"><a class="menuLink" href="Analysis_4.php">Americano</a></li>
-        <li><a class="menuLink" href="Analysis_5.php">Opening hours</a></li>
+        <li><a class="menuLink" href="Analysis_5.php">Midnight cafe</a></li>
       </ul>
     </nav>
     <div class="analysis_div">

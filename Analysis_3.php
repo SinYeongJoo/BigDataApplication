@@ -1,6 +1,6 @@
 <?php
 $mysql_port=3306;
-$conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
+$conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
 mysqli_query($conn, "set session character_set_connection=utf8;");
 mysqli_query($conn, "set session character_set_results=utf8;");
 mysqli_query($conn, "set session character_set_client=utf8;");
@@ -78,9 +78,9 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
         border-left: solid 3px #4e4e4e;
       }
       .logo_button {
-            width: 110px;
+            width: 55px;
             position:absolute;
-            top:20px;
+            top:18px;
             left:8%;
         }
         .analysis_button {
@@ -121,7 +121,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     </style>
   </head>
   <body>
-  <input class = "logo_button" type="image" src="images/logo.png" onclick="location.href='Main.php'">
+  <input class = "logo_button" type="image" src="images/logo_3.png" onclick="location.href='Main.php'">
   <?php
     session_start();
     if(isset($_SESSION['user_id'])){
@@ -134,7 +134,7 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
     <input class = "analysis_button" type="image" src = "images/analysis.png" onclick="location.href='Analysis_1.php'">
     <?php
     if(isset($_SESSION['user_id'])){?>
-    <input class = "add_button" type="button" value = "카페 추가" onclick="location.href='Add.php'"/>
+    <input class = "add_button" type="button" value = "+ Cafe" onclick="location.href='Add.php'"/>
     <?php } ?>
      <hr style="width: 100%; color: gray; margin-top: 70px;"/>
      <div class = "analysis_intro_div">
@@ -195,15 +195,15 @@ if(mysqli_connect_errno()){ echo "연결실패! ".mysqli_connect_error();}
               "Geumcheon-gu","Nowon-gu","Dobong-gu","Dongdaemun-gu","Dongjak-gu","Mapo-gu","Seodaemun-gu",
               "Seocho-gu","Seongdong-gu","Seongbuk-gu","Songpa-gu","Yangcheon-gu","Yeongdeungpo-gu","Yongsan-gu",
               "Eunpyeong-gu","Jongno-gu","Jung-gu","Jungnang-gu");
-      $conn = mysqli_connect('localhost', 'root', '1234', 'cafe');
-      $cafe_ = "SELECT cafe_name,cafe_address FROM cafe natural join area natural join gu where takeout = 1 and gu_name = '$guArray[$id]'";
+      $conn = mysqli_connect('localhost', 'team09', 'team09', 'team09');
+      $cafe_ = "SELECT cafe_name,cafe_address FROM cafe natural join area natural join gu 
+      where takeout = 1 and gu_name = '$guArray[$id]'";
       $cafe = mysqli_query($conn, $cafe_);
       while($cafeGu = mysqli_fetch_assoc($cafe)){ ?>
         <button style = "text-align:left; width:230px; height:27px; border-left:solid 4px teal; border-right:solid 0px; border-top:solid 0px; border-bottom:solid 1px; font-weight:bolder">  
         <?php  echo $cafeGu['cafe_name']; ?>
         </button>
-      <?php }} ?>
-      <?php
+      <?php }} 
         if(array_key_exists('gu0',$_POST)) show(0);
         else if(array_key_exists('gu1',$_POST)) show(1);
         else if(array_key_exists('gu2',$_POST)) show(2);
